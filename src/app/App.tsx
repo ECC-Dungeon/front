@@ -1,6 +1,11 @@
-import { Routers } from "./router";
+import { Provider } from "./provider";
+import { Router } from "./router";
 
 export const App = () => {
-  return <Routers />;
+  return (
+    <Provider>
+      <Router />
+    </Provider>
+  );
 }
 
