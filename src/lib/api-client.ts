@@ -1,6 +1,7 @@
 import Axios, { InternalAxiosRequestConfig } from 'axios';
 
 import { paths } from '@/config/paths';
+import { env } from '@/config/env';
 
 function authRequestInterceptor(config: InternalAxiosRequestConfig) {
   if (config.headers) {
@@ -12,7 +13,7 @@ function authRequestInterceptor(config: InternalAxiosRequestConfig) {
 }
 
 export const api = Axios.create({
-  baseURL: 'http://localhost:8080',
+  baseURL: env.API_URL,
 });
 
 api.interceptors.request.use(authRequestInterceptor);

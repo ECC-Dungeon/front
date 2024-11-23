@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { configureAuth } from 'react-query-auth';
 import { z } from 'zod';
-import { User, UserResponse } from '@/types/api';
+import { AuthResponse, User, UserResponse } from '@/types/api';
 import { paths } from '@/config/paths';
 import { api } from './api-client';
 
@@ -20,14 +20,29 @@ const logout = (): Promise<void> => {
 
 // ログインフォームの入力値のスキーマ
 export const loginInputSchema = z.object({
-  id: z.string().min(1, 'Required').email('Invalid ID'),
+  email: z.string().min(1, 'Required').email('Invalid ID'),
   password: z.string().min(4, 'Required'),
 });
 
 // ログインフォームの入力値の型
 export type LoginInput = z.infer<typeof loginInputSchema>;
-const loginWithIdAndPassword = (data: LoginInput): Promise<UserResponse> => {
+
+const loginWithIdAndPassword = (data: LoginInput): Promise<AuthResponse> => {
   return api.post('/auth/login', data);
+};
+
+// 新規作成フォームの入力値のスキーマ
+export const registerInputSchema = z.object({
+  email: z.string().min(1, 'Required'),
+  password: z.string().min(1, 'Required'),
+});
+
+export type RegisterInput = z.infer<typeof registerInputSchema>;
+
+const registerWithEmailAndPassword = (
+  data: RegisterInput,
+): Promise<AuthResponse> => {
+  return api.post('/auth/register', data);
 };
 
 // 認証ロジックを統一
@@ -37,13 +52,14 @@ const authConfig = {
     const response = await loginWithIdAndPassword(data);
     return response.user;
   },
-  registerFn: async () => {
-    throw new Error('Registration is disabled');
+  registerFn: async (data: RegisterInput) => {
+    const response = await registerWithEmailAndPassword(data);
+    return response.user;
   },
   logoutFn: logout,
 };
 
-export const { useUser, useLogin, useLogout, AuthLoader } =
+export const { useUser, useRegister, useLogin, useLogout, AuthLoader } =
   configureAuth(authConfig);
 
 // 認証が必要なページを保護するコンポーネント

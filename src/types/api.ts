@@ -10,12 +10,18 @@ export type Entity<T> = {
 
 // ユーザーのエンティティ
 export type User = Entity<{
-  password: string;
-  loginStatus: boolean;
-  lastLoginTime: number;
+  // password: string;
+  // loginStatus: boolean;
+  // lastLoginTime: number;
+  email: string;
 }>;
 
 // ユーザーのレスポンス
 export type UserResponse = {
+  user: User;
+};
+
+export type AuthResponse = {
+  jwt: string;
   user: User;
 };
