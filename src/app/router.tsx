@@ -12,8 +12,8 @@ export const createAppRouter = (queryClient: QueryClient) =>
     {
       path: paths.home.path,
       lazy: async () => {
-        const { LandingRoute } = await import('./routes/landing');
-        return { Component: LandingRoute };
+        const { LoginRoute } = await import('./routes/auth/login');
+        return { Component: LoginRoute };
       },
     },
     // login
