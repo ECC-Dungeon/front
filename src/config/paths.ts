@@ -1,7 +1,7 @@
 export const paths = {
   home: {
     path: '/',
-    getHref: () => '/',
+    getHref: () => '/auth/login',
   },
 
   auth: {
