@@ -1,5 +1,5 @@
 import { useUser } from '@/lib/auth';
-import { ContentLayout } from '@/components/layout/content-layout';
+import { ContentLayout } from '@/components/layouts/content-layout';
 
 export const ExplanationRoute = () => {
   const user = useUser();
