@@ -9,7 +9,13 @@ const models = {
     password: String,
     createdAt: () => Date.now(),
   },
+  team: {
+    id: primaryKey(nanoid),
+    name: String,
+    createdAt: () => Date.now(),
+  },
 };
+
 
 // モックでDBの作成
 export const db = factory(models);
