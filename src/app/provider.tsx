@@ -4,6 +4,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 
 import { MainError } from '@/components/errors/main';
 import { queryConfig } from '@/lib/query';
+import { AuthLoader } from '@/lib/auth';
 
 type ProviderProps = {
   children: React.ReactNode;
@@ -23,7 +24,15 @@ export const Provider = ({ children }: ProviderProps) => {
       {/* エラー画面を作成する */}
       <ErrorBoundary FallbackComponent={MainError}>
         <QueryClientProvider client={queryClient}>
-          {children}
+          <AuthLoader
+            renderLoading={() => (
+              <div className="flex h-screen w-screen items-center justify-center">
+                {/* スピナーを表示する */}
+              </div>
+            )}
+          >
+            {children}
+          </AuthLoader>
         </QueryClientProvider>
       </ErrorBoundary>
     </Suspense>
