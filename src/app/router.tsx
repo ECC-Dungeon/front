@@ -34,6 +34,17 @@ export const createAppRouter = (queryClient: QueryClient) =>
       ErrorBoundary: AppRootErrorBoundary,
       children: [
         {
+          path: paths.app.team.path,
+          lazy: async () => {
+            const { CreateTeamNameRoute } = await import(
+              './routes/app/create-team-name'
+            );
+            return {
+              Component: CreateTeamNameRoute,
+            };
+          },
+        },
+        {
           path: paths.app.explanation.path,
           lazy: async () => {
             const { ExplanationRoute } = await import(

@@ -17,6 +17,10 @@ export const paths = {
       path: '/app',
       getHref: () => '/app',
     },
+    team: {
+      path: 'create-team-name',
+      getHref: () => '/app/create-team-name',
+    },
     explanation: {
       path: 'explanation',
       getHref: () => '/app/explanation',
