@@ -1,7 +1,7 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { paths } from '@/config/paths';
-import { LoginForm } from '@/feature/components/login/login-form';
+import { LoginForm } from '@/feature/login/components/login-form';
 import { useUser } from '@/lib/auth';
 import { useEffect } from 'react';
 
