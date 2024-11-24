@@ -1,4 +1,4 @@
-import { InputTeam } from '@/feature/components/explanation/input-team';
+import { InputTeam } from '@/feature/components/explanation/create-team';
 import { useUser } from '@/lib/auth';
 import { getTeamName } from '@/lib/team-name';
 
