@@ -45,7 +45,24 @@ export const createAppRouter = (queryClient: QueryClient) =>
           },
           ErrorBoundary: AppRootErrorBoundary,
         },
-        {},
+        {
+          path: paths.app.map.path,
+          lazy: async () => {
+            const { MapRoute } = await import('./routes/app/map');
+            return {
+              Component: MapRoute,
+            };
+          },
+        },
+        {
+          path: paths.app.floor.path,
+          lazy: async () => {
+            const { FloorRoute } = await import('./routes/app/floor');
+            return {
+              Component: FloorRoute,
+            };
+          },
+        },
       ],
     },
     // not found

@@ -21,9 +21,13 @@ export const paths = {
       path: 'explanation',
       getHref: () => '/app/explanation',
     },
-    result: {
-      path: 'result',
-      getHref: () => '/app/result',
+    map: {
+      path: 'map',
+      getHref: () => '/app/map',
+    },
+    floor: {
+      path: 'floor',
+      getHref: () => '/app/floor',
     },
   },
 } as const;
