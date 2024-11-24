@@ -5,8 +5,10 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export const CreateTeamNameRoute = () => {
-  const user = useUser();
-  if (!user.data) return null;
+  if (process.env.NODE_ENV !== 'development') {
+    const user = useUser();
+    if (!user.data) return null;
+  }
 
   const navigate = useNavigate();
 

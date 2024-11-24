@@ -1,8 +1,10 @@
 import { useUser } from '@/lib/auth';
 
 export const GetQrRoute = () => {
-  const user = useUser();
-  if (!user.data) return null;
+  if (process.env.NODE_ENV !== 'development') {
+    const user = useUser();
+    if (!user.data) return null;
+  }
 
   return <div>qrコードのかけらゲット画面</div>;
 };
