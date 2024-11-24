@@ -25,3 +25,7 @@ export type AuthResponse = {
   jwt: string;
   user: User;
 };
+
+export type TeamName = {
+  name: string;
+};

@@ -4,6 +4,8 @@ import Cookies from 'js-cookie';
 
 // 認証トークンを保存するためのCookie名
 export const AUTH_COOKIE = `ecc_dungeon_app_token`;
+// チーム名を保存するためのCookie名
+export const TEAM_COOKIE = `ecc_dungeon_team_name`;
 
 /**
  * 文字列をDJB2でハッシュ化

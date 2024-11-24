@@ -1,7 +1,7 @@
 export const paths = {
   home: {
     path: '/',
-    getHref: () => '/',
+    getHref: () => '/auth/login',
   },
 
   auth: {
@@ -16,6 +16,10 @@ export const paths = {
     root: {
       path: '/app',
       getHref: () => '/app',
+    },
+    team: {
+      path: 'create-team-name',
+      getHref: () => '/app/create-team-name',
     },
     explanation: {
       path: 'explanation',

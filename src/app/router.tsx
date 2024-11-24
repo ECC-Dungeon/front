@@ -12,8 +12,8 @@ export const createAppRouter = (queryClient: QueryClient) =>
     {
       path: paths.home.path,
       lazy: async () => {
-        const { LandingRoute } = await import('./routes/landing');
-        return { Component: LandingRoute };
+        const { LoginRoute } = await import('./routes/auth/login');
+        return { Component: LoginRoute };
       },
     },
     // login
@@ -33,6 +33,17 @@ export const createAppRouter = (queryClient: QueryClient) =>
       ),
       ErrorBoundary: AppRootErrorBoundary,
       children: [
+        {
+          path: paths.app.team.path,
+          lazy: async () => {
+            const { CreateTeamNameRoute } = await import(
+              './routes/app/create-team-name'
+            );
+            return {
+              Component: CreateTeamNameRoute,
+            };
+          },
+        },
         {
           path: paths.app.explanation.path,
           lazy: async () => {
