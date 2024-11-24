@@ -2,8 +2,10 @@ import { ContentLayout } from '@/components/layouts/content-layout';
 import { useUser } from '@/lib/auth';
 
 export const MapRoute = () => {
-  const user = useUser();
-  if (!user.data) return null;
+  if (process.env.NODE_ENV !== 'development') {
+    const user = useUser();
+    if (!user.data) return null;
+  }
 
   return (
     <ContentLayout>

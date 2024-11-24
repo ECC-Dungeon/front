@@ -1,8 +1,7 @@
 import { ContentLayout } from '@/components/layouts/content-layout';
-import { FloorLayout } from '@/components/layouts/floor-layout';
 import { useUser } from '@/lib/auth';
 
-export const FloorRoute = () => {
+export const CompletedQrRoute = () => {
   if (process.env.NODE_ENV !== 'development') {
     const user = useUser();
     if (!user.data) return null;
@@ -10,15 +9,14 @@ export const FloorRoute = () => {
 
   return (
     <ContentLayout>
-      <FloorLayout>
-        <div>aaa</div>
-      </FloorLayout>
+      <div>QRコード読み取り完了</div>
     </ContentLayout>
   );
 };
 
 /**
  * 後で消す
- * このファイルで階詳細を表示する
- * component/layouts/floor-layout.tsxを使用する
+ * QRコード読み取り完了後の画面
+ * components/だけで完結するはず...
+ * 完成したqrはここで表示する
  */

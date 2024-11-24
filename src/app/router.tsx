@@ -27,9 +27,9 @@ export const createAppRouter = (queryClient: QueryClient) =>
     {
       path: paths.app.root.path,
       element: (
-        <ProtectedRoute>
+        // <ProtectedRoute>
           <AppRoot />
-        </ProtectedRoute>
+        // </ProtectedRoute>
       ),
       ErrorBoundary: AppRootErrorBoundary,
       children: [
@@ -71,6 +71,26 @@ export const createAppRouter = (queryClient: QueryClient) =>
             const { FloorRoute } = await import('./routes/app/floor');
             return {
               Component: FloorRoute,
+            };
+          },
+        },
+        {
+          path: paths.app.completedQr.path,
+          lazy: async () => {
+            const { CompletedQrRoute } = await import(
+              './routes/app/completed-qr'
+            );
+            return {
+              Component: CompletedQrRoute,
+            };
+          },
+        },
+        {
+          path: paths.app.getQr.path,
+          lazy: async () => {
+            const { GetQrRoute } = await import('./routes/app/get-qr');
+            return {
+              Component: GetQrRoute,
             };
           },
         },

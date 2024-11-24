@@ -1,3 +1,5 @@
+import { get } from 'react-hook-form';
+
 export const paths = {
   home: {
     path: '/',
@@ -32,6 +34,14 @@ export const paths = {
     floor: {
       path: 'floor',
       getHref: () => '/app/floor',
+    },
+    completedQr: {
+      path: 'completed-qr',
+      getHref: () => '/app/completed-qr',
+    },
+    getQr: {
+      path: 'get-qr',
+      getHref: () => '/app/get-qr',
     },
   },
 } as const;
