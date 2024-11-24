@@ -77,9 +77,20 @@ export const createAppRouter = (queryClient: QueryClient) =>
         {
           path: paths.app.completedQr.path,
           lazy: async () => {
-            const { CompletedQrRoute } = await import('./routes/app/completed-qr');
+            const { CompletedQrRoute } = await import(
+              './routes/app/completed-qr'
+            );
             return {
               Component: CompletedQrRoute,
+            };
+          },
+        },
+        {
+          path: paths.app.getQr.path,
+          lazy: async () => {
+            const { GetQrRoute } = await import('./routes/app/get-qr');
+            return {
+              Component: GetQrRoute,
             };
           },
         },
