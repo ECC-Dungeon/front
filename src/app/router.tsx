@@ -74,6 +74,15 @@ export const createAppRouter = (queryClient: QueryClient) =>
             };
           },
         },
+        {
+          path: paths.app.completedQr.path,
+          lazy: async () => {
+            const { CompletedQrRoute } = await import('./routes/app/completed-qr');
+            return {
+              Component: CompletedQrRoute,
+            };
+          },
+        },
       ],
     },
     // not found

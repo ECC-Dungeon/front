@@ -33,5 +33,9 @@ export const paths = {
       path: 'floor',
       getHref: () => '/app/floor',
     },
+    completedQr: {
+      path: 'completed-qr',
+      getHref: () => '/app/completed-qr',
+    },
   },
 } as const;
