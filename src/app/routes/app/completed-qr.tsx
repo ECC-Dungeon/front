@@ -16,4 +16,5 @@ export const CompletedQrRoute = () => {
  * 後で消す
  * QRコード読み取り完了後の画面
  * components/だけで完結するはず...
+ * 完成したqrはここで表示する
  */
