@@ -6,7 +6,7 @@ type ContentLayoutProps = {
 
 export const ContentLayout = ({ children }: ContentLayoutProps) => {
   return (
-    <section className="h-screen">
+    <section className="h-screen bg-[url('assets/bg-brick.png')] bg-cover bg-center">
       <div className="">{children}</div>
     </section>
   );
