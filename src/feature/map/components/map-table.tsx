@@ -1,5 +1,5 @@
 import React from 'react';
-import TableRow from '@/feature/map/components/TableRow.tsx';
+import TableRow from '@/feature/map/components/table-row';
 
 const MapTable: React.FC = () => {
   return (

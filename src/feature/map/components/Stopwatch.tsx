@@ -53,7 +53,7 @@ function MyStopwatch() {
   }, [formattedMinutes, formattedSeconds]);
   
   return (
-    <div style={{ textAlign: "center" }}>
+    <div className='text-center'>
       <div className='text-5xl'>
         <span>{storedMinutes}</span>:
         <span>{storedSeconds}</span>

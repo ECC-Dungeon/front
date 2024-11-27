@@ -1,8 +1,8 @@
 import { ContentLayout } from '@/components/layouts/content-layout';
 import { useUser } from '@/lib/auth';
-import Progress from '@/feature/map/components/Progress.tsx';
-import Stopwatch from '@/feature/map/components/Stopwatch.tsx';
-import MapTable from '@/feature/map/components/MapTable.tsx';
+import Progress from '@/feature/map/components/progress.tsx';
+import Stopwatch from '@/feature/map/components/stopwatch.tsx';
+import MapTable from '@/feature/map/components/map-table.tsx';
 
 export const MapRoute = () => {
   if (process.env.NODE_ENV !== 'development') {
