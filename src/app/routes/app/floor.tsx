@@ -3,7 +3,7 @@ import { DialogBubble } from '@/components/ui/dialog/dialog';
 import { useUser } from '@/lib/auth';
 // import { ContentLayout } from '@/components/layouts/content-layout';
 import character from '@/assets/エコ2.png';
-import headerBack from '@/assets/arrow_back_ios_new.png';
+import headerBack from '@/assets/arrow_back_ios_new.svg';
 
 type FloorData = {
   id: number;

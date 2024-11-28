@@ -1,5 +1,5 @@
-import dialogLeft from '@/assets/dialog_back.png';
-import dialogRight from '@/assets/dialog_play.png';
+import dialogLeft from '@/assets/dialog_back.svg';
+import dialogRight from '@/assets/dialog_play.svg';
 
 type DialogBubbleProps = { 
   name: string;
