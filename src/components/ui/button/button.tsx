@@ -36,12 +36,13 @@ interface ButtonProps
     VariantProps<typeof buttonVariants> {
   onClick: () => void; // ボタンがクリックされたときの処理
   label: string; // ボタンに表示するテキスト
+  className?: string;
 }
 
 // ボタンコンポーネント
-const Button: React.FC<ButtonProps> = ({ onClick, label, size = 'small' }) => {
+const Button: React.FC<ButtonProps> = ({ onClick, label, size = 'small', className }) => {
   return (
-    <button className={`${buttonVariants({ size })}`} onClick={onClick}>
+    <button className={`${buttonVariants({ size })} ${className}`} onClick={onClick}>
       <div className={`${innerVariants({ size })}`}>{label}</div>
     </button>
   );
