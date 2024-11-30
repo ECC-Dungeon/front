@@ -1,7 +1,7 @@
 import { useUser } from '@/lib/auth';
 import { PageLayout } from '@/components/layouts/page-layout';
 import Button from '@/components/ui/button/button.tsx';
-import CircleGradation from '@/components/ui/gradation/circle-gradation';
+import { CircleGradation } from '@/components/ui/gradation/circle-gradation';
 import QrPiece from '@/feature/get-qr/components/qr-piece';
 
 export const GetQrRoute = () => {
