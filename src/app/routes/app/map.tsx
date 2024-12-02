@@ -8,7 +8,7 @@ import purple from '@/assets/floor6-bg.png';
 // マップ画像のインポート
 import first from '@/assets/floor1-map.png';
 import second from '@/assets/floor2-map.png';
-import fifth_sixth from '@/assets/floor5,6-map.png';
+import fifth_sixth from '@/assets/floor5_6-map.png';
 
 
 const floors = [
