@@ -24,12 +24,9 @@ export const GetQrRoute = () => {
             <p>あと2個かけらをゲットしないと</p>
             <p>いけないみたい...</p>
           </div>
-          <Button
-            label="冒険を続ける"
-            onClick={() => {}}
-            size="small"
-            className="mt-14"
-          />
+          <Button className="mt-14">
+            <p>冒険を続ける</p>
+          </Button>
         </CircleGradation>
       </div>
     </PageLayout>
