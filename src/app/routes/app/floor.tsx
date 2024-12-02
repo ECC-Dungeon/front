@@ -3,7 +3,7 @@ import { DialogBubble } from '@/components/ui/dialog/dialog';
 import { useUser } from '@/lib/auth';
 // import { ContentLayout } from '@/components/layouts/content-layout';
 import character from '@/assets/echo.png';
-import headerBack from '@/assets/arrow_back_ios_new.svg';
+import { IoIosArrowBack } from "react-icons/io";
 
 type FloorData = {
   id: number;
@@ -55,10 +55,8 @@ const Floor = () => {
           className="flex items-center gap-3 px-5 py-3 rounded-full"
           onClick={() => navigate(-1)}
         >
-          <img 
-            src={headerBack} 
-            alt="戻る"
-          />
+         <IoIosArrowBack />
+
           <span className="text-lg font-semibold">戻る</span>
         </button>
         <div className="flex-1 flex justify-center">
