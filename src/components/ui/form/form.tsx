@@ -113,7 +113,7 @@ FormControl.displayName = 'FormControl';
 
 type FormProps<TFormValues extends FieldValues, Schema> = {
   onSubmit: SubmitHandler<TFormValues>;
-  schema: Schema;
+  schema?: Schema;
   className?: string;
   children: (methods: UseFormReturn<TFormValues>) => React.ReactNode;
   options?: UseFormProps<TFormValues>;
@@ -131,7 +131,10 @@ const Form = <
   id,
   schema,
 }: FormProps<TFormValues, Schema>) => {
-  const form = useForm({ ...options, resolver: zodResolver(schema) });
+  const form = useForm<TFormValues>({
+    ...options,
+    ...(schema && { resolver: zodResolver(schema) }), // schema が存在する場合のみ resolver を適用
+  });
   return (
     <FormProvider {...form}>
       <form

@@ -3,7 +3,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/utils/cn';
 
 const labelVariants = cva(
-  'text-sm font-medium leading-none', // ベーススタイル
+  'text-sm font-medium leading-none text-[#FAFAFA]', // ベーススタイル
 );
 
 const Label = React.forwardRef<
