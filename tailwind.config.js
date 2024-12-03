@@ -9,6 +9,10 @@ export default {
       backgroundColor: {
         black: '#202020',
         'light-gray': '#EDEDED',
+        main: '#323232',
+      },
+      lineHeight: {
+        12: '3rem',
       },
     },
   },
