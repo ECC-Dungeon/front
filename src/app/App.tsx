@@ -1,5 +1,5 @@
-import { Provider } from "./provider";
-import { Router } from "./router";
+import { Provider } from './provider';
+import { Router } from './router';
 
 export const App = () => {
   return (
@@ -7,5 +7,4 @@ export const App = () => {
       <Router />
     </Provider>
   );
-}
-
+};
