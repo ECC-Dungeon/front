@@ -54,7 +54,19 @@ export const useQrScanner = () => {
       const header = qrCodeData.slice(0, delimiterIndex); // 最初の部分
       const body = qrCodeData.slice(delimiterIndex + 1); // 残りの部分
 
-      return { header, body };
+      // type=xxxのxxx部分を取得
+      const headerMatch = header.match(/^type=(.+)/);
+      if (!headerMatch) {
+        return { header, body };
+      }
+
+      // data=xxxのxxx部分を取得
+      const bodyMatch = body.match(/^data=(.+)/);
+      if (!bodyMatch) {
+        return { header: headerMatch[1], body };
+      }
+
+      return { header: headerMatch[1], body: bodyMatch[1] };
     };
 
     const scanQrCode = () => {
@@ -74,10 +86,8 @@ export const useQrScanner = () => {
           if (qrCodeData) {
             // QRコードのデータをパースして取得
             const parsed = parseQrCode(qrCodeData.data);
-            // headerで正しい確認
-            if (
-              parsed.header !== `type=${import.meta.env.VITE_APP_QR_HEADER}`
-            ) {
+            // headerが正しい確認
+            if (parsed.header !== import.meta.env.VITE_APP_QR_HEADER) {
               setError('対応していないQRコードです');
               setTimeout(() => setError(''), 2000);
               setTimeout(scanQrCode, 1000);
