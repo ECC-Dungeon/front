@@ -22,25 +22,3 @@ const Loading = () => {
 };
 
 export default Loading;
-
-// const Loading = () => {
-//   const [dots, setDots] = useState('');
-
-//   useEffect(() => {
-//     const interval = setInterval(() => {
-//       setDots((prevDots) => (prevDots.length >= 3 ? '' : prevDots + '.'));
-//     }, 500);
-
-//     return () => clearInterval(interval);
-//   }, []);
-
-//   return (
-//     <div className="flex items-center justify-center h-[866px] w-[412px] bg-[#323232]">
-//       <div className="text-[#FFFFFF] text-2xl font-mono">
-//         Loading<span className="inline-block w-12">{dots}</span>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Loading;
