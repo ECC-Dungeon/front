@@ -12,8 +12,8 @@ export const createAppRouter = (queryClient: QueryClient) =>
     {
       path: paths.home.path,
       lazy: async () => {
-        const { LoginRoute } = await import('./routes/auth/login');
-        return { Component: LoginRoute };
+        const { LandingRoute } = await import('./routes/landing');
+        return { Component: LandingRoute };
       },
     },
     // login
@@ -27,9 +27,9 @@ export const createAppRouter = (queryClient: QueryClient) =>
     {
       path: paths.app.root.path,
       element: (
-        // <ProtectedRoute>
+        <ProtectedRoute>
           <AppRoot />
-        // </ProtectedRoute>
+        </ProtectedRoute>
       ),
       ErrorBoundary: AppRootErrorBoundary,
       children: [
@@ -105,7 +105,7 @@ export const createAppRouter = (queryClient: QueryClient) =>
           Component: NotFoundRoute,
         };
       },
-      // ErrorBoundary: AppRootErrorBoundary,
+      ErrorBoundary: AppRootErrorBoundary,
     },
   ]);
 
