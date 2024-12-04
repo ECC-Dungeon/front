@@ -1,12 +1,6 @@
 import { ContentLayout } from '@/components/layouts/content-layout';
-import { useUser } from '@/lib/auth';
 
 export const CompletedQrRoute = () => {
-  if (process.env.NODE_ENV !== 'development') {
-    const user = useUser();
-    if (!user.data) return null;
-  }
-
   return (
     <ContentLayout>
       <div>QRコード読み取り完了</div>
