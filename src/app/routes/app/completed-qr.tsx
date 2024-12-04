@@ -1,4 +1,4 @@
-import { ContentLayout } from '@/components/layouts/content-layout';
+import { PageLayout } from '@/components/layouts/page-layout';
 import { useUser } from '@/lib/auth';
 
 export const CompletedQrRoute = () => {
@@ -8,9 +8,9 @@ export const CompletedQrRoute = () => {
   }
 
   return (
-    <ContentLayout>
-      <div>QRコード読み取り完了</div>
-    </ContentLayout>
+    <PageLayout>
+      <div className="text-white">QRコード読み取り完了</div>
+    </PageLayout>
   );
 };
 
