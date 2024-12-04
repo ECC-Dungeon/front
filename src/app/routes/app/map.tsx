@@ -1,42 +1,47 @@
 import { useUser } from '@/lib/auth';
-import { Link } from 'react-router-dom';
-// 背景画像のインポート
-import brown from '@/assets/floor1-bg.png';
-import green from '@/assets/floor2-bg.png';
-import red from '@/assets/floor5-bg.png';
-import purple from '@/assets/floor6-bg.png';
-// マップ画像のインポート
-import first from '@/assets/floor1-map.png';
-import second from '@/assets/floor2-map.png';
-import fifth_sixth from '@/assets/floor5_6-map.png';
+
+// import { Link } from 'react-router-dom';
+// // 背景画像のインポート
+// import brown from '@/assets/floor1-bg.png';
+// import green from '@/assets/floor2-bg.png';
+// import red from '@/assets/floor5-bg.png';
+// import purple from '@/assets/floor6-bg.png';
+// // マップ画像のインポート
+// import first from '@/assets/floor1-map.png';
+// import second from '@/assets/floor2-map.png';
+// import fifth_sixth from '@/assets/floor5_6-map.png';
 
 
-const floors = [
-  {
-    id: 1,
-    name: '１階',
-    background: brown,
-    floorMap: first
-  },
-  {
-    id: 2,
-    name: '２階',
-    background: green,
-    floorMap: second
-  },
-  {
-    id: 5,
-    name: '５階',
-    background: red,
-    floorMap: fifth_sixth
-  },
-  {
-    id: 6,
-    name: '６階',
-    background: purple,
-    floorMap: fifth_sixth
-  },
-] as const;
+// const floors = [
+//   {
+//     id: 1,
+//     name: '１階',
+//     background: brown,
+//     floorMap: first
+//   },
+//   {
+//     id: 2,
+//     name: '２階',
+//     background: green,
+//     floorMap: second
+//   },
+//   {
+//     id: 5,
+//     name: '５階',
+//     background: red,
+//     floorMap: fifth_sixth
+//   },
+//   {
+//     id: 6,
+//     name: '６階',
+//     background: purple,
+//     floorMap: fifth_sixth
+//   },
+// ] as const;
+
+import Progress from '@/feature/map/components/progress.tsx';
+import Stopwatch from '@/feature/map/components/stopwatch.tsx';
+import MapTable from '@/feature/map/components/map-table.tsx';
 
 export const MapRoute = () => {
   if (process.env.NODE_ENV !== 'development') {
@@ -45,16 +50,25 @@ export const MapRoute = () => {
   }
 
   return (
-    <div className='flex flex-col'>
-      {floors.map((floor) => (
-        <Link 
-          key={floor.id} 
-          to="/app/floor" 
-          state={{ floor }}
-        >
-          {floor.name}
-        </Link>
-      ))}
-    </div>
+    // <div className='flex flex-col'>
+    //   {floors.map((floor) => (
+    //     <Link 
+    //       key={floor.id} 
+    //       to="/app/floor" 
+    //       state={{ floor }}
+    //     >
+    //       {floor.name}
+    //     </Link>
+    //   ))}
+    // </div>
+    <ContentLayout>
+      <div>
+        <div className="flex items-center justify-center space-x-12 pb-7 pt-20">
+          <Stopwatch />
+          <Progress progress={0} /> {/* 進捗が0の場合 */}
+        </div>
+        <MapTable />
+      </div>
+    </ContentLayout>
   );
 };

@@ -1,4 +1,8 @@
 import { useUser } from '@/lib/auth';
+import { PageLayout } from '@/components/layouts/page-layout';
+import Button from '@/components/ui/button/button.tsx';
+import { CircleGradation } from '@/components/ui/gradation/circle-gradation';
+import QrPiece from '@/feature/get-qr/components/qr-piece';
 
 export const GetQrRoute = () => {
   if (process.env.NODE_ENV !== 'development') {
@@ -6,7 +10,27 @@ export const GetQrRoute = () => {
     if (!user.data) return null;
   }
 
-  return <div>qrコードのかけらゲット画面</div>;
+  return (
+    <PageLayout>
+      <div className="relative flex h-full justify-center pt-28 text-center">
+        <CircleGradation>
+          <div className="font-sans text-4xl font-semibold text-white">
+            <p>QRコードのかけらを</p>
+            <p>ゲットした!</p>
+          </div>
+          <QrPiece pieceId={3} className="my-12" />
+          <div className="font-sans text-xl font-semibold leading-loose text-white">
+            <p>鍵が完成するまで</p>
+            <p>あと2個かけらをゲットしないと</p>
+            <p>いけないみたい...</p>
+          </div>
+          <Button className="mt-14">
+            <p>冒険を続ける</p>
+          </Button>
+        </CircleGradation>
+      </div>
+    </PageLayout>
+  );
 };
 
 /**
