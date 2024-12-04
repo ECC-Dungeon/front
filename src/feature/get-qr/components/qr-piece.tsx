@@ -9,12 +9,8 @@ const QrSrc: Record<number, string> = {
   3: QrPiece3,
 };
 
-// 許可されたフロアの定義
-const PIECE_SRC = [1, 2, 3] as const;
-type pieceSrc = (typeof PIECE_SRC)[number];
-
 interface QrPieceProps {
-  pieceId: pieceSrc;
+  pieceId: number;
   className?: string;
 }
 
