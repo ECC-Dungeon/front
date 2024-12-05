@@ -6,6 +6,16 @@ import character from '@/assets/echo.png';
 import { IoIosArrowBack } from "react-icons/io";
 import Stopwatch from '@/feature/map/components/stopwatch.tsx';
 
+// 背景画像のインポート
+import brown from '@/assets/floor1-bg.png';
+import green from '@/assets/floor2-bg.png';
+import red from '@/assets/floor5-bg.png';
+import purple from '@/assets/floor6-bg.png';
+// マップ画像のインポート
+import first from '@/assets/floor1-map.png';
+import second from '@/assets/floor2-map.png';
+import fifth_sixth from '@/assets/floor5_6-map.png';
+
 export const FloorRoute = () => {
   if (process.env.NODE_ENV !== 'development') {
     const user = useUser();
@@ -15,10 +25,20 @@ export const FloorRoute = () => {
   return <Floor />;
 };
 
+const floors: Record<
+  number,
+  { id: number; name: string; background: string; floorMap: string }
+> = {
+  1: { id: 1, name: '１階', background: brown, floorMap: first },
+  2: { id: 2, name: '２階', background: green, floorMap: second },
+  5: { id: 5, name: '５階', background: red, floorMap: fifth_sixth },
+  6: { id: 6, name: '６階', background: purple, floorMap: fifth_sixth },
+};
+
 const Floor = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const floorData = location.state;
+  const floorData = floors[location.state.id];
 
   console.log('floorData:', floorData);
 
