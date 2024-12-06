@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import Modal from 'react-modal';
 import { QrScan } from './qr-scan';
+import Button from '@/components/ui/button/button';
 
 type LoginFormProps = {
   onSuccess: () => void;
 };
 
 export const LoginForm = ({ onSuccess }: LoginFormProps) => {
-
   const [modal, setModal] = useState(false);
 
   const openModal = () => {
@@ -23,7 +23,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
         {/* TODO: ロゴに差し替える */}
         <img src="" alt="" className="h-40 w-48" />
       </div>
-      <button onClick={openModal}>認証QRコードを読み取る</button>
+      <Button onClick={openModal} label="認証QRコードを読み取る" />
       <Modal
         isOpen={modal}
         style={{
