@@ -1,7 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { DialogBubble } from '@/components/ui/dialog/dialog';
-import { useUser } from '@/lib/auth';
-// import { ContentLayout } from '@/components/layouts/content-layout';
 import character from '@/assets/echo.png';
 import { IoIosArrowBack } from "react-icons/io";
 import Stopwatch from '@/feature/map/components/stopwatch.tsx';
@@ -85,10 +83,12 @@ const Floor = () => {
       {/* キャラクターとダイアログ */}
       <div className="absolute bottom-0 left-0 w-full">
         <img src={character} alt="エコ" className="h-auto w-[370px]" />
-        <DialogBubble
-          name="エコ"
-          message={`はじめまして！<br>ECCダンジョンの案内係を担当するエコだよ！<br>今日はよろしくね。`}
-        />
+        <div className="fixed bottom-20 left-1/2 w-[372px] -translate-x-1/2 transform">
+          <DialogBubble
+            name="エコ"
+            message={`はじめまして！<br>ECCダンジョンの案内係を担当するエコだよ！<br>今日はよろしくね。`}
+          />
+        </div>
       </div>
     </section>
   );

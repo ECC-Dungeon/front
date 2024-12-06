@@ -9,8 +9,8 @@ if (!root) throw new Error('No root element');
 
 enableMocking().then(() => {
   createRoot(root).render(
-    <StrictMode>
-      <App />
-    </StrictMode>,
+    // <StrictMode>
+    <App />,
+    // </StrictMode>,
   );
 });

@@ -1,41 +1,83 @@
 import dialogLeft from '@/assets/dialog_back.svg';
 import dialogRight from '@/assets/dialog_play.svg';
+import { VariantProps, cva } from 'class-variance-authority';
 
-type DialogBubbleProps = { 
+type DialogBubbleProps = {
   name: string;
   message: string;
+  size?: 'small' | 'large';
+  type?: 'normal' | 'none';
 };
 
-export const DialogBubble = ({ name, message }: DialogBubbleProps) => {
+// サイズ
+export const MessageBoxVariants = cva(
+  `bg-[#323232] border-4 border-white text-white rounded-lg rounded-tl-none overflow-hidden`,
+  {
+    variants: {
+      size: {
+        small: 'h-24',
+        large: 'h-[200px]',
+      },
+    },
+    defaultVariants: {
+      size: 'large',
+    },
+  },
+);
+
+// 左右ボタンの有無
+export const StepVariants = cva(`flex gap-6`, {
+  variants: {
+    type: {
+      normal: '',
+      none: 'hidden',
+    },
+  },
+  defaultVariants: {
+    type: 'normal',
+  },
+});
+
+export const DialogBubble = ({
+  name,
+  message,
+  size = 'large',
+  type = 'normal',
+}: DialogBubbleProps) => {
   return (
-    <div className="fixed bottom-20 left-1/2 transform -translate-x-1/2 w-[372px]">
-      {/* 名前表示用の四角 */}
-      <div>
-        <div className="absolute top-0 left-0 bg-[#FAFAFA] text-[#323232] rounded-t-lg px-3 py-1 text-xl font-bold w-[96px] h-[32px] flex items-center justify-center">
-          {name}
+    <div className="w-[372px]">
+      <div className="flex justify-between">
+        {/* 名前表示用の四角 */}
+        <div className="w-[372px]">
+          <div className="flex h-[32px] w-[96px] items-center justify-center rounded-t-lg bg-[#FAFAFA] px-3 py-1 text-xl font-bold text-[#323232]">
+            {name}
+          </div>
         </div>
-      </div>
-      {/* 左右のボタン */}
-      <div className="absolute top-0 right-4 flex gap-6">
-        <button>
-          <img
-            src={dialogLeft}
-            alt="前のメッセージを表示"
-            className="w-full h-full object-cover"
-          />
-        </button>
-        <button>
-          <img
-            src={dialogRight}
-            alt="後のメッセージを表示"
-            className="w-full h-full object-cover"
-          />
-        </button>
+        {/* 左右のボタン */}
+        <div className={StepVariants({ type })}>
+          <button>
+            <img
+              src={dialogLeft}
+              alt="前のメッセージを表示"
+              className="h-full w-full object-contain"
+            />
+          </button>
+          <button>
+            <img
+              src={dialogRight}
+              alt="後のメッセージを表示"
+              className="h-full w-full object-contain"
+            />
+          </button>
+        </div>
       </div>
 
       {/* メッセージ表示用の四角 */}
-      <div className="bg-[#323232] border-4 border-white text-white rounded-lg rounded-tl-none overflow-hidden mt-7 w-[372px] h-[200px]">
-        <div className="p-4 pl-6 text-lg" dangerouslySetInnerHTML={{ __html: message }} />
+      <div className={MessageBoxVariants({ size })}>
+        <div
+          className="p-4 pl-6 text-lg"
+          dangerouslySetInnerHTML={{ __html: message }}
+        />
       </div>
     </div>
   );

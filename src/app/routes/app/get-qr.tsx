@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 
 export const GetQrRoute = () => {
 
-  const [clearCount, setClearCount] = useState<number>(3);
+  const [clearCount, setClearCount] = useState<number>(2);
   const navigate = useNavigate();
 
   // clearCountに3を受け取った時、3秒経過で画面遷移
@@ -24,10 +24,10 @@ export const GetQrRoute = () => {
 
   return (
     <PageLayout>
-      <div className="relative flex h-full justify-center pt-28 text-center">
+      <div className="text-center">
         <CircleGradation>
           {clearCount === 3 ? (
-            <>
+            <div className="pt-28">
               <div className="font-sans text-4xl font-semibold text-white">
                 <p>QRコードのかけらを</p>
                 <p>全てゲットした!</p>
@@ -35,9 +35,9 @@ export const GetQrRoute = () => {
               <div className="mx-auto mt-16 w-72">
                 <img src={QrPieces} alt="qr欠片画像" className="w-full" />
               </div>
-            </>
+            </div>
           ) : (
-            <>
+            <div className="pt-28">
               <div className="font-sans text-4xl font-semibold text-white">
                 <p>QRコードのかけらを</p>
                 <p>ゲットした!</p>
@@ -51,7 +51,7 @@ export const GetQrRoute = () => {
                   <p>冒険を続ける</p>
                 </Button>
               </div>
-            </>
+            </div>
           )}
         </CircleGradation>
       </div>
