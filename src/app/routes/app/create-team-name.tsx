@@ -35,7 +35,7 @@ export const CreateTeamNameRoute = () => {
 
   return (
     <section className="bg-main flex h-svh flex-col items-center justify-center space-y-24">
-      <img src="" alt="" className="h-52 w-60 border" />
+      <img src="/ecc-dungeon-logo.webp" alt="ECCダンジョンメインロゴ" />
       <InputTeam />
     </section>
   );
