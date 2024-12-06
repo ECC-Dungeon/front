@@ -27,9 +27,9 @@ export const createAppRouter = (queryClient: QueryClient) =>
     {
       path: paths.app.root.path,
       element: (
-        <ProtectedRoute>
-          <AppRoot />
-        </ProtectedRoute>
+        // <ProtectedRoute>
+        <AppRoot />
+        // </ProtectedRoute>
       ),
       ErrorBoundary: AppRootErrorBoundary,
       children: [
