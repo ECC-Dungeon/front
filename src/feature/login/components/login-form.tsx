@@ -21,7 +21,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
     <section className="flex h-screen flex-col items-center justify-center gap-4">
       <div>
         {/* TODO: ロゴに差し替える */}
-        <img src="" alt="" className="h-40 w-48" />
+        <img src="/ecc-dungeon-logo.webp" alt="ECCダンジョンメインロゴ" />{' '}
       </div>
       <Button onClick={openModal} children="認証QRコードを読み取る" />
       <Modal
