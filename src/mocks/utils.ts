@@ -3,7 +3,7 @@ import { db } from './db';
 import Cookies from 'js-cookie';
 
 // 認証トークンを保存するためのCookie名
-export const AUTH_COOKIE = `ecc_dungeon_app_token`;
+export const AUTH_COOKIE = `token`;
 // チーム名を保存するためのCookie名
 export const TEAM_COOKIE = `ecc_dungeon_team_name`;
 

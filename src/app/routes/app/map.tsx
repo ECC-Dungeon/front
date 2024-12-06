@@ -1,5 +1,3 @@
-import { useUser } from '@/lib/auth';
-
 import Progress from '@/feature/map/components/progress.tsx';
 import Stopwatch from '@/feature/map/components/stopwatch.tsx';
 import MapTable from '@/feature/map/components/map-table.tsx';
@@ -7,11 +5,6 @@ import { ContentLayout } from '@/components/layouts/content-layout';
 import ReaderButton from '@/feature/map/components/reader-button.tsx';
 
 export const MapRoute = () => {
-  if (process.env.NODE_ENV !== 'development') {
-    const user = useUser();
-    if (!user.data) return null;
-  }
-
   return (
     <ContentLayout>
       <div>

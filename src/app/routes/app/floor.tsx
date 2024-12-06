@@ -17,10 +17,6 @@ import second from '@/assets/floor2-map.png';
 import fifth_sixth from '@/assets/floor5_6-map.png';
 
 export const FloorRoute = () => {
-  if (process.env.NODE_ENV !== 'development') {
-    const user = useUser();
-    if (!user.data) return null;
-  }
 
   return <Floor />;
 };

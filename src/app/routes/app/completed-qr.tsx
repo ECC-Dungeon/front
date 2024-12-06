@@ -1,12 +1,7 @@
 import { PageLayout } from '@/components/layouts/page-layout';
-import { useUser } from '@/lib/auth';
+
 
 export const CompletedQrRoute = () => {
-  if (process.env.NODE_ENV !== 'development') {
-    const user = useUser();
-    if (!user.data) return null;
-  }
-
   return (
     <PageLayout>
       <div className="text-white">QRコード読み取り完了</div>

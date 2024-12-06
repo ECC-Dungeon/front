@@ -1,4 +1,3 @@
-import { useUser } from '@/lib/auth';
 import { PageLayout } from '@/components/layouts/page-layout';
 import Button from '@/components/ui/button/button.tsx';
 import { CircleGradation } from '@/components/ui/gradation/circle-gradation';
@@ -9,10 +8,6 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
 export const GetQrRoute = () => {
-  if (process.env.NODE_ENV !== 'development') {
-    const user = useUser();
-    if (!user.data) return null;
-  }
 
   const [clearCount, setClearCount] = useState<number>(3);
   const navigate = useNavigate();

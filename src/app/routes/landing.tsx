@@ -1,7 +1,19 @@
 /**
- * 初期画面(説明画面)
+ * 初期画面
  */
 
+import { paths } from '@/config/paths';
+import { useNavigate } from 'react-router-dom';
+
 export const LandingRoute = () => {
-  return <div>初期画面</div>;
+  const navigate = useNavigate();
+
+  const handleStart = () => {
+    if (localStorage.getItem('gameToken')) {
+      navigate(paths.app.team.getHref());
+    } else {
+      navigate(paths.auth.login.getHref());
+    }
+  };
+  return <button onClick={handleStart}>ゲームを始める</button>;
 };

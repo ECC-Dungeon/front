@@ -41,6 +41,34 @@ export const useQrScanner = () => {
       }
     };
 
+    // QRコードのデータをパースする
+    const parseQrCode = (
+      qrCodeData: string,
+    ): { header: string; body: string } => {
+      const delimiterIndex = qrCodeData.indexOf(';');
+      if (delimiterIndex === -1) {
+        return { header: qrCodeData, body: '' };
+      }
+
+      // 最初の「;」で分割
+      const header = qrCodeData.slice(0, delimiterIndex); // 最初の部分
+      const body = qrCodeData.slice(delimiterIndex + 1); // 残りの部分
+
+      // type=xxxのxxx部分を取得
+      const headerMatch = header.match(/^type=(.+)/);
+      if (!headerMatch) {
+        return { header, body };
+      }
+
+      // data=xxxのxxx部分を取得
+      const bodyMatch = body.match(/^data=(.+)/);
+      if (!bodyMatch) {
+        return { header: headerMatch[1], body };
+      }
+
+      return { header: headerMatch[1], body: bodyMatch[1] };
+    };
+
     const scanQrCode = () => {
       const canvas = canvasRef.current;
       const video = videoRef.current;
@@ -54,16 +82,18 @@ export const useQrScanner = () => {
             imageData.width,
             imageData.height,
           );
+          // QRコードが見つかった場合
           if (qrCodeData) {
-            // TODO: QRコードの内容によって処理を分岐
-            // if (qrCodeData.data !== 'http://localhost:3000/result') {
-            //   setError('対応していないQRコードです');
-            //   setTimeout(() => setError(''), 2000);
-            //   setTimeout(scanQrCode, 100);
-            //   return;
-            // }
-            console.log(qrCodeData);
-            setResult(qrCodeData.data);
+            // QRコードのデータをパースして取得
+            const parsed = parseQrCode(qrCodeData.data);
+            // headerが正しい確認
+            if (parsed.header !== import.meta.env.VITE_APP_QR_HEADER) {
+              setError('対応していないQRコードです');
+              setTimeout(() => setError(''), 2000);
+              setTimeout(scanQrCode, 1000);
+              return;
+            }
+            setResult(parsed.body);
             setError('');
             return;
           } else {

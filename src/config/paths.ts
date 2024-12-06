@@ -1,9 +1,7 @@
-import { get } from 'react-hook-form';
-
 export const paths = {
   home: {
     path: '/',
-    getHref: () => '/auth/login',
+    getHref: () => '/',
   },
 
   auth: {

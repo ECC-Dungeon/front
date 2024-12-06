@@ -1,6 +1,5 @@
-import Cookies from 'js-cookie';
 import { http, HttpResponse } from 'msw';
-import { networkDelay, TEAM_COOKIE } from '../utils';
+import { networkDelay } from '../utils';
 import { env } from '@/config/env';
 import { db, persistDb } from '../db';
 
@@ -23,19 +22,22 @@ export const teamNameHandler = [
       });
       // チーム名をmockDBに保存
       await persistDb('team');
-      // チーム名をcookieに保存
-      Cookies.set(TEAM_COOKIE, teamName.name, { path: '/' });
 
-      return HttpResponse.json(teamName, {
-        headers: {
-          'Set-Cookie': `${TEAM_COOKIE}=${teamName.name}; Path=/`,
-        },
-      });
+      return HttpResponse.json(teamName, { status: 200 });
     } catch (error: any) {
       return HttpResponse.json(
         { message: error?.message || 'Server Error' },
         { status: 500 },
       );
     }
+  }),
+
+  http.get(`${env.API_URL}/get/team-name`, async ({}) => {
+    // ネットワーク遅延をシミュレート
+    await networkDelay();
+
+    const teamName = 'test return';
+
+    return HttpResponse.json({ name: teamName });
   }),
 ];
