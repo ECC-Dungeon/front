@@ -1,27 +1,41 @@
-import { InputTeam } from '@/feature/create-team-name/components/create-team';
-import { useUser } from '@/lib/auth';
-import { getTeamName } from '@/lib/team-name';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { QueryClient } from '@tanstack/react-query';
 
-export const CreateTeamNameRoute = () => {
-  if (process.env.NODE_ENV !== 'development') {
-    const user = useUser();
-    if (!user.data) return null;
-  }
+import {
+  getTeamNameQueryOptions,
+  useTeam,
+} from '@/feature/create-team-name/api/get-team-name';
+import { InputTeam } from '@/feature/create-team-name/components/create-team';
 
-  const navigate = useNavigate();
-
-  const teamName = getTeamName();
-  // チーム名が登録されている場合は説明画面へ遷移
-  useEffect(() => {
-    if (teamName) {
-      navigate('/app/explanation');
-    }
-  }, [teamName, navigate]);
+export const teamNameLoader = (queryClient: QueryClient) => async () => {
+  const query = getTeamNameQueryOptions();
 
   return (
-    <section>
+    queryClient.getQueryData(query.queryKey) ??
+    (await queryClient.fetchQuery(query))
+  );
+};
+
+export const CreateTeamNameRoute = () => {
+  const navigate = useNavigate();
+  const teamName = useTeam();
+
+  // 副作用としてナビゲーションを実行
+  useEffect(() => {
+    if (!teamName.isLoading && teamName.data) {
+      navigate('/app/explanation'); // データが存在する場合にリダイレクト
+    }
+  }, [teamName.isLoading, teamName.data, navigate]);
+
+  if (teamName.isLoading) {
+    // TODO: ローディングコンポーネントに置き換え
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <section className="bg-main flex h-svh flex-col items-center justify-center space-y-24">
+      <img src="" alt="" className="h-52 w-60 border" />
       <InputTeam />
     </section>
   );
