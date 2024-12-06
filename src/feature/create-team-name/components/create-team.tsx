@@ -36,7 +36,7 @@ export const InputTeam = () => {
               className="bg-[#FAFAFA] bg-opacity-25 shadow-inner"
             />
             <div className="flex w-full justify-end">
-              <Button label="次へ" />
+              <Button children="次へ" />
             </div>
           </>
         )}
