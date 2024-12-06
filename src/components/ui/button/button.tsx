@@ -34,7 +34,7 @@ export const innerVariants = cva(
 interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  onClick: () => void; // ボタンがクリックされたときの処理
+  onClick?: () => void; // ボタンがクリックされたときの処理
   label: string; // ボタンに表示するテキスト
   className?: string;
 }
