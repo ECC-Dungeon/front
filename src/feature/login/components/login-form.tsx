@@ -23,7 +23,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
         {/* TODO: ロゴに差し替える */}
         <img src="" alt="" className="h-40 w-48" />
       </div>
-      <Button onClick={openModal} label="認証QRコードを読み取る" />
+      <Button onClick={openModal} children="認証QRコードを読み取る" />
       <Modal
         isOpen={modal}
         style={{
