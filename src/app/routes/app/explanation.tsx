@@ -43,7 +43,7 @@ export const ExplanationRoute = () => {
                 開始までしばらくお待ち下さい...
               </div>
             )}
-            <Button label="START" onClick={() => handleClick()} />
+            <Button children="START" onClick={() => handleClick()} />
           </div>
         </div>
       </div>
