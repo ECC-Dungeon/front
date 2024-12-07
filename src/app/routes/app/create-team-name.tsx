@@ -23,7 +23,10 @@ export const CreateTeamNameRoute = () => {
 
   // 副作用としてナビゲーションを実行
   useEffect(() => {
-    if (!teamName.isLoading && teamName.data) {
+    const name: string | undefined = teamName.data?.data.msg?.Name;
+    const nickName: string | undefined = teamName.data?.data.msg?.NickName;
+    if (name === nickName) return;
+    if (!teamName.isLoading) {
       navigate('/app/explanation'); // データが存在する場合にリダイレクト
     }
   }, [teamName.isLoading, teamName.data, navigate]);
@@ -34,8 +37,8 @@ export const CreateTeamNameRoute = () => {
   }
 
   return (
-    <section className="bg-main flex h-svh flex-col items-center justify-center space-y-24">
-      <img src="/ecc-dungeon-logo.webp" alt="ECCダンジョンメインロゴ" />
+    <section className="flex h-svh flex-col items-center justify-center space-y-24 bg-main">
+      <img src="../ecc-dungeon-logo.webp" alt="ECCダンジョンメインロゴ" />
       <InputTeam />
     </section>
   );
