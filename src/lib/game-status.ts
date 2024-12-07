@@ -1,16 +1,28 @@
 import { queryOptions, useQuery } from '@tanstack/react-query';
 
 import { api } from '@/lib/api-client';
-import { GameStatus } from '@/types/api';
 import { QueryConfig } from './query';
 
-export const getGameStatus = (): Promise<{ data: GameStatus }> => {
-  return api.post('/admin/admin/start2', {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: localStorage.getItem('token'),
+interface ApiResponse {
+  msg: string;
+  result: string;
+}
+
+export const getGameStatus = (): Promise<ApiResponse> => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    return Promise.reject(new Error('Authorization token is missing'));
+  }
+  return api.post(
+    '/admin/game/start2',
+    {},
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token,
+      },
     },
-  });
+  );
 };
 
 export const getGameStatusQueryOptions = () => {
@@ -21,7 +33,7 @@ export const getGameStatusQueryOptions = () => {
 };
 
 type UseGameStatusOptions = {
-  queryConfig?: QueryConfig<typeof getGameStatusQueryOptions>;
+  queryConfig?: QueryConfig<typeof getGameStatus>;
 };
 
 export const useGameStatus = ({ queryConfig }: UseGameStatusOptions = {}) => {

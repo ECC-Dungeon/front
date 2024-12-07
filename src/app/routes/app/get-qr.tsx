@@ -6,6 +6,7 @@ import QrPieces from '@/assets/qr-pieces.svg';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { paths } from '@/config/paths';
 
 export const GetQrRoute = () => {
 
@@ -16,7 +17,7 @@ export const GetQrRoute = () => {
   useEffect(() => {
     if (clearCount === 3) {
       const interval = setInterval(() => {
-        navigate('/app/completed-qr');
+        navigate(paths.app.completedQr.getHref());
       }, 3000);
       return () => clearInterval(interval);
     }

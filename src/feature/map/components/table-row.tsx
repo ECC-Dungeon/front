@@ -1,6 +1,7 @@
 import React from 'react';
 import { VariantProps, cva } from 'class-variance-authority';
 import { useNavigate } from 'react-router-dom';
+import { paths } from '@/config/paths';
 
 // 各階の説明を設定 0はダミー用
 const MissionData: Record<number, { description: string }> = {
@@ -53,7 +54,7 @@ const TableRow: React.FC<TableRowProps> = ({ floor, className }) => {
   // 各階の詳細画面に遷移
   const handleRowClick = () => {
     if (floor === 0) return; //  0の時画面遷移しない
-    navigate('/app/floor', { state: { id: floor } });
+    navigate(paths.app.floor.getHref(), { state: { id: floor } });
   };
 
   return (

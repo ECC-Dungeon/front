@@ -18,12 +18,18 @@ export const createDiscussion = ({
 }: {
   data: TeamNameInput;
 }): Promise<TeamName> => {
-  return api.put('/admin/game/tname', data, {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: localStorage.getItem('token'),
+  return api.put(
+    '/admin/game/tname',
+    {
+      name: data.NickName,
     },
-  });
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token'),
+      },
+    },
+  );
 };
 
 type TeamNameOptions = {

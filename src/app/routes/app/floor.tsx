@@ -14,6 +14,7 @@ import purple from '@/assets/floor6-bg.png';
 import first from '@/assets/floor1-map.png';
 import second from '@/assets/floor2-map.png';
 import fifth_sixth from '@/assets/floor5_6-map.png';
+import { paths } from '@/config/paths';
 
 export const FloorRoute = () => {
 
@@ -38,7 +39,7 @@ const Floor = () => {
   console.log('floorData:', floorData);
 
   if (!floorData) {
-    navigate('/app/map'); // map.tsxにリダイレクト
+    navigate(paths.app.map.getHref()); // map.tsxにリダイレクト
     return null;
   }
 
