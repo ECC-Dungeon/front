@@ -25,8 +25,7 @@ export const CreateTeamNameRoute = () => {
   useEffect(() => {
     const name: string | undefined = teamName.data?.data.msg?.Name;
     const nickName: string | undefined = teamName.data?.data.msg?.NickName;
-    if (name === nickName) return;
-    if (!teamName.isLoading) {
+    if (!teamName.isLoading && name && nickName) {
       navigate('/app/explanation'); // データが存在する場合にリダイレクト
     }
   }, [teamName.isLoading, teamName.data, navigate]);
