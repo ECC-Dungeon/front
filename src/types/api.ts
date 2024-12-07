@@ -55,7 +55,3 @@ export type ApiResponse = {
   msg: TeamData;
   result: string;
 };
-
-export type GameStatus = {
-  result: string;
-}
