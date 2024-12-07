@@ -3,10 +3,6 @@ import { networkDelay } from '../utils';
 import { env } from '@/config/env';
 import { db, persistDb } from '../db';
 
-type TeamNameBody = {
-  name: string;
-};
-
 export const teamNameHandler = [
   // チーム名保存
   http.put(`${env.API_URL}/admin/game/tname`, async ({ request }) => {
@@ -15,13 +11,14 @@ export const teamNameHandler = [
 
     try {
       // リクエストボディを取得
-      // const body = JSON.parse(request)
+      const teamName = await request.json();
+      if (typeof teamName !== 'object' || teamName === null) {
+        throw new Error('Invalid request body: Expected an object');
+      }
 
-      console.log('teamName', request);
       // チーム名を保存
       db.team.create({
-        // TODO :なおす
-        // ...,
+        ...teamName,
       });
       // チーム名をmockDBに保存
       await persistDb('team');

@@ -4,9 +4,13 @@ import { nanoid } from 'nanoid';
 // モデルの定義
 const models = {
   team: {
-    id: primaryKey(nanoid),
-    name: String,
-    createdAt: () => Date.now(),
+    TeamID: primaryKey(nanoid),
+    Name: String,
+    GameID: String,
+    Status: String,
+    NickName: String,
+    Creator: String,
+    CreatedAt: Number,
   },
   floor: {
     id: primaryKey(nanoid),

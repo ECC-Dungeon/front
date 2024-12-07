@@ -31,8 +31,8 @@ export const InputTeam = () => {
             <Input
               type="text"
               label="チーム名を入力してください"
-              error={formState.errors['name']}
-              registration={register('name')}
+              error={formState.errors['NickName']}
+              registration={register('NickName')}
               className="bg-[#FAFAFA] bg-opacity-25 shadow-inner"
             />
             <div className="flex w-full justify-end">
