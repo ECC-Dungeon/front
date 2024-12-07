@@ -9,16 +9,19 @@ type TeamNameBody = {
 
 export const teamNameHandler = [
   // チーム名保存
-  http.post(`${env.API_URL}/save/team-name`, async ({ request }) => {
+  http.put(`${env.API_URL}/admin/game/tname`, async ({ request }) => {
     // ネットワーク遅延をシミュレート
     await networkDelay();
 
     try {
       // リクエストボディを取得
-      const teamName = (await request.json()) as TeamNameBody;
+      // const body = JSON.parse(request)
+
+      console.log('teamName', request);
       // チーム名を保存
       db.team.create({
-        ...teamName,
+        // TODO :なおす
+        // ...,
       });
       // チーム名をmockDBに保存
       await persistDb('team');
@@ -32,12 +35,33 @@ export const teamNameHandler = [
     }
   }),
 
-  http.get(`${env.API_URL}/get/team-name`, async ({}) => {
+  // チーム情報取得
+  http.get(`${env.API_URL}/admin/game/team`, async () => {
     // ネットワーク遅延をシミュレート
     await networkDelay();
 
-    const teamName = 'test return';
+    try {
+      // モックデータ
+      const teamData = {
+        msg: {
+          TeamID: '31442d20-eca4-481b-9565-cc0bd18eef30',
+          Name: 'test',
+          GameID: 'f7f3ea7-562c-438c-837a-771688919149',
+          Status: 'used',
+          NickName: 'test',
+          Creator: 'cchp5x6dajt1adi',
+          CreatedAt: 1733307694,
+        },
+        result: 'success',
+      };
 
-    return HttpResponse.json({ name: teamName });
+      // 正しいレスポンスを返却
+      return HttpResponse.json({ data: teamData });
+    } catch (error: any) {
+      return HttpResponse.json(
+        { message: error?.message || 'Failed to fetch team data' },
+        { status: 500 },
+      );
+    }
   }),
 ];
