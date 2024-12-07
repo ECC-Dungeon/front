@@ -1,7 +1,6 @@
 import { queryOptions, useQuery } from '@tanstack/react-query';
 
 import { api } from '@/lib/api-client';
-// import { TeamData } from '@/types/api';
 import { QueryConfig } from '@/lib/query';
 interface ApiResponse {
   msg: {
@@ -16,17 +15,7 @@ interface ApiResponse {
   result: string;
 }
 
-export type TeamData = {
-  TeamID: string;
-  Name: string;
-  GameID: string;
-  Status: string;
-  NickName: string;
-  Creator: string;
-  CreatedAt: number;
-};
-
-export const getTeamName = (): Promise<{ data: ApiResponse }> => {
+export const getTeamName = (): Promise<ApiResponse> => {
   return api.get('/admin/game/team', {
     headers: {
       'Content-Type': 'application/json',
