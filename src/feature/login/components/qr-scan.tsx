@@ -10,7 +10,7 @@ export const QrScan = ({ onSuccess }: LoginFormProps) => {
 
   useEffect(() => {
     if (result) {
-      localStorage.setItem('gameToken', result);
+      localStorage.setItem('token', result);
       onSuccess();
     }
   }, [result]);

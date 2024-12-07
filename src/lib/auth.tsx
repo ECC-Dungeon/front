@@ -6,7 +6,7 @@ import { paths } from '@/config/paths';
 // 認証が必要なページを保護するコンポーネント
 export const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   try {
-    const gameToken = localStorage.getItem('gameToken');
+    const gameToken = localStorage.getItem('token');
     if (!gameToken) {
       console.log({
         pathname: location.pathname,

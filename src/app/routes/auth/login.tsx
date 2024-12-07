@@ -8,7 +8,7 @@ export const LoginRoute = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const redirectTo = searchParams.get('redirectTo');
-  const gameToken = localStorage.getItem('gameToken');
+  const gameToken = localStorage.getItem('token');
   
   useEffect(() => {
     if (gameToken) {

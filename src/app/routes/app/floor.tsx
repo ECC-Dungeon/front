@@ -1,6 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { DialogBubble } from '@/components/ui/dialog/dialog';
-import { useUser } from '@/lib/auth';
 // import { ContentLayout } from '@/components/layouts/content-layout';
 import character from '@/assets/echo.png';
 import { IoIosArrowBack } from "react-icons/io";

@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 
 export const GetQrRoute = () => {
 
-  const [clearCount, setClearCount] = useState<number>(3);
+  const [clearCount] = useState<number>(3);
   const navigate = useNavigate();
 
   // clearCountに3を受け取った時、3秒経過で画面遷移
