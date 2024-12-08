@@ -1,10 +1,12 @@
+import { useNavigate } from 'react-router-dom';
+
 import Button from '@/components/ui/button/button';
 import { Form, Input } from '@/components/ui/form';
 import {
   createTeamNameSchema,
   useCreateTeamName,
 } from '../api/create-team-name';
-import { useNavigate } from 'react-router-dom';
+import { paths } from '@/config/paths';
 
 export const InputTeam = () => {
   const navigate = useNavigate();
@@ -12,7 +14,7 @@ export const InputTeam = () => {
   const createTeamName = useCreateTeamName({
     mutationConfig: {
       onSuccess: () => {
-        navigate('/app/explanation');
+        navigate(paths.app.explanation.getHref());
       },
     },
   });
