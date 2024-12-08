@@ -1,16 +1,59 @@
-import { env } from '@/config/env';
+import { z } from 'zod';
+import { api } from './api-client';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { MutationConfig } from '@/lib/query';
 
-export const getNext = async (clearFloor: number) => {
-  const response = await fetch(
-    `${env.API_URL}/game/next?clearFloor=${clearFloor}`,
+interface ApiResponse {
+  msg: {
+    NextNum: number;
+    AllClear: boolean;
+    ClearFloor: Array<number>;
+  };
+  result: string;
+}
+
+// スキーマ
+export const nextFloorSchema = z.object({
+  clear_floor: z.number().min(1, 'Required'),
+});
+
+// チーム名の入力値のスキーマ
+export type NextFloorInput = z.infer<typeof nextFloorSchema>;
+
+export const getNextFloor = async ({
+  data,
+}: {
+  data: NextFloorInput;
+}): Promise<ApiResponse> => {
+  return await api.post(
+    '/game/next',
+    { clear_floor: data.clear_floor },
     {
-      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('GameToken') || '',
+        Authorization: localStorage.getItem('token') || '',
       },
     },
   );
-  const data = await response.json();
-  return data;
+};
+
+type NextQueryOptions = {
+  mutationConfig?: MutationConfig<typeof getNextFloor>;
+};
+
+export const useNextFloor = ({ mutationConfig }: NextQueryOptions = {}) => {
+  const queryClient = useQueryClient();
+
+  const { onSuccess, ...restConfig } = mutationConfig || {};
+
+  return useMutation({
+    onSuccess: (...args) => {
+      queryClient.invalidateQueries({
+        queryKey: ['next'],
+      });
+      onSuccess?.(...args);
+    },
+    ...restConfig,
+    mutationFn: getNextFloor,
+  });
 };
