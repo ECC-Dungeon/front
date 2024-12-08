@@ -1,28 +1,52 @@
 import { useEffect, useState } from 'react';
-
-import { ContentLayout } from '@/components/layouts/content-layout';
-import Button from '@/components/ui/button/button';
 import { useNavigate } from 'react-router-dom';
 import { useGameStatus } from '@/lib/game-status';
+import { ContentLayout } from '@/components/layouts/content-layout';
+import Button from '@/components/ui/button/button';
+import { paths } from '@/config/paths';
+import { useNextFloor } from '@/lib/next';
 
 export const ExplanationRoute = () => {
   const navigate = useNavigate();
   const [isFirstClick, setIsFirstClick] = useState<boolean>(false); // クリックされたかどうかの状態
+  const data = useGameStatus();
 
-  // React Query でゲームステータスを取得
-  const { data, isLoading } = useGameStatus();
+  const nextFloor = useNextFloor({
+    mutationConfig: {
+      onSuccess: (response) => {
+        if (response?.msg) {
+          const nextNum = response.msg.NextNum;
+          console.log(`NextNum: ${nextNum}`);
+        } else {
+          console.error('Response structure is incorrect or undefined');
+        }
+      },
+      onError: (error) => {
+        console.error('Error:', error);
+      },
+    },
+  });
 
   useEffect(() => {
-    // ステータスを監視し、ゲーム開始時にページ遷移
-    if (data?.data?.result === 'success') {
-      navigate('/app/map', { replace: true });
+    if (data.data?.msg === 'success') {
+      navigate(paths.app.map.getHref(), { replace: true });
     }
-  }, [data, navigate]);
+  }, [data.data, navigate]);
 
-  const handleClick = () => {
-    // ボタンが押された時の処理
-    if (data?.data?.result === 'success') {
-      navigate('/app/map', { replace: true });
+  // ボタンが押された時の処理
+  const handleClick = async () => {
+    if (data.data?.result === 'success') {
+      try {
+        // mutateAsyncを使って非同期処理を待機
+        const next = await nextFloor.mutateAsync({
+          data: { clear_floor: -1 },
+        });
+
+        // mutateAsync の結果を state に渡して遷移
+        navigate('/app/map', { replace: true, state: next });
+      } catch (error) {
+        console.error('Error during floor mutation:', error);
+      }
     } else {
       setIsFirstClick(true);
     }
@@ -39,7 +63,7 @@ export const ExplanationRoute = () => {
             </p>
           </div>
           <div className="flex flex-col items-center space-y-6">
-            {isFirstClick && !isLoading && (
+            {isFirstClick && (
               <div className="text-[#FAFAFA]/50">
                 開始までしばらくお待ち下さい...
               </div>
@@ -51,8 +75,3 @@ export const ExplanationRoute = () => {
     </ContentLayout>
   );
 };
-
-/**'
- * 後で消す
- * 説明用のファイル
- */
