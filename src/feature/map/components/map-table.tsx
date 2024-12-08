@@ -1,58 +1,34 @@
 import React from 'react';
 
 import TableRow from '@/feature/map/components/table-row';
-import { Floor } from '@/types/api';
-
-type MapTableProps = {
-  floor: Floor[];
-};
 
 // 許可されたフロアを型定義とともに明示
 const MISSION_FLOORS = [1, 2, 5, 6] as const;
 type MissionFloor = (typeof MISSION_FLOORS)[number];
 
+type MapTableProps = {
+  floor: MissionFloor; // floor を MissionFloor 型に変更
+};
+
 const MapTable: React.FC<MapTableProps> = ({ floor }) => {
+  // MissionFloors オブジェクトを初期化
   const MissionFloors: Record<MissionFloor, boolean> = {} as Record<
     MissionFloor,
     boolean
   >;
 
-  floor.map((f) => {
-    f.Enabled && (MissionFloors[f.FloorNum as MissionFloor] = f.Enabled);
-  });
-
-  console.log(MissionFloors);
-
-  // // 表示階を管理するboolean
-  // const MissionFloors: Record<MissionFloor, boolean> = {
-  //   1: false,
-  //   2: false,
-  //   5: false,
-  //   6: false,
-  // };
-
-  // フロア情報をフィルタリングし、EnabledがtrueのものだけをMissionFloorsに反映
-  // floor
-  //   .filter(
-  //     (f) => f.Enabled && MISSION_FLOORS.includes(f.FloorNum as MissionFloor),
-  //   )
-  //   .forEach((f) => {
-  //     MissionFloors[f.FloorNum as MissionFloor] = true;
-  //   });
+  // 受け取ったフロアを true に設定
+  MissionFloors[floor] = true;
 
   // tr 要素を動的に生成
   const rows = Object.entries(MissionFloors)
     .sort(([a], [b]) => parseInt(b) - parseInt(a)) // 降順ソート
-    .map(([key]) => {
-      const floor = parseInt(key) as MissionFloor;
-      return <TableRow key={floor} floor={floor} />;
+    .map(([key, isActive]) => {
+      const floorNum = parseInt(key) as MissionFloor;
+      return <TableRow key={floorNum} floor={isActive ? floorNum : 0} />;
     });
 
-  return (
-    <table className="m-auto w-[320px]">
-      <tbody>{rows}</tbody>
-    </table>
-  );
+  return <table className="m-auto w-[320px]">{rows}</table>;
 };
 
 export default MapTable;
