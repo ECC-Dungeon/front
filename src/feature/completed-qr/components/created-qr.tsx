@@ -9,8 +9,8 @@ function CreatedQr() {
   useEffect(() => {
     new QRCode(code.current, {
       text: 'https://github.com/ushelp/EasyQRCodeJS',
-      width: 170,
-      height: 170,
+      width: 256,
+      height: 256,
       quietZone: 10,
       quietZoneColor: '#ffffff',
       logo: picKey,
@@ -21,11 +21,11 @@ function CreatedQr() {
   }, [code]);
 
   return (
-    <div className="relative flex h-64 items-center">
+    <div className="relative flex h-[350px] items-center">
       <img
         src={qrBackground}
         alt="qrコード背景"
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform"
+        className="absolute left-1/2 top-1/2 h-full -translate-x-1/2 -translate-y-1/2 transform object-cover"
       />
       <div
         ref={code}
