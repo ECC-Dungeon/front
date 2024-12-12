@@ -1,27 +1,82 @@
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { PageLayout } from '@/components/layouts/page-layout';
 import Button from '@/components/ui/button/button.tsx';
 import { CircleGradation } from '@/components/ui/gradation/circle-gradation';
 import QrPiece from '@/feature/get-qr/components/qr-piece';
 import QrPieces from '@/assets/qr-pieces.svg';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 import { paths } from '@/config/paths';
 
 export const GetQrRoute = () => {
-
-  const [clearCount] = useState<number>(3);
+  const location = useLocation();
   const navigate = useNavigate();
 
-  // clearCountに3を受け取った時、3秒経過で画面遷移
+  const [clearCount, setClearCount] = useState<number>(0); // クリア済みかけら数
+  // const [nextNum, setNextNum] = useState<number | null>(null); // 次のフロア番号
+
+  const [state, setState] = useState<any>(null);
+
+  // 初期化処理
+  useEffect(() => {
+    try {
+      const state =
+        typeof location.state === 'string'
+          ? JSON.parse(location.state)
+          : location.state;
+
+      if (
+        state &&
+        typeof state === 'object' &&
+        'msg' in state &&
+        typeof state.msg === 'object' &&
+        'NextNum' in state.msg &&
+        typeof state.msg.NextNum === 'number'
+      ) {
+        // state が数値型の場合
+        // setNextNum(state);
+        setState(state);
+        setClearCount(state.msg.CleardFloor.length);
+      } else if (state && typeof state === 'object') {
+        // state がオブジェクト型の場合
+        if (state?.NextNum !== undefined) {
+          // setNextNum(state.NextNum);
+
+          // CleardFloorの確認とクリア数の設定
+          const clearedFloors = state.CleardFloor ?? []; // CleardFloor が未定義の場合は空配列
+          if (Array.isArray(clearedFloors)) {
+            setClearCount(clearedFloors.length); // 配列の長さをクリア数として利用
+          } else {
+            console.error('CleardFloor is not an array:', clearedFloors);
+          }
+        } else {
+          console.error('Invalid state structure:', state);
+        }
+      } else {
+        console.error('Unsupported location.state type:', state);
+      }
+    } catch (error) {
+      console.error('Error parsing location state:', error);
+    }
+  }, [location.state]);
+
+  // クリア数が3のとき、自動遷移
   useEffect(() => {
     if (clearCount === 3) {
-      const interval = setInterval(() => {
+      const timer = setTimeout(() => {
         navigate(paths.app.completedQr.getHref());
       }, 3000);
-      return () => clearInterval(interval);
+
+      return () => clearTimeout(timer); // クリーンアップ
     }
-  }, []);
+  }, [clearCount, navigate]);
+
+  const handleClick = () => {
+    console.log('states-g:', state);
+    navigate(paths.app.map.getHref(), {
+      replace: true,
+      state: state,
+    });
+  };
 
   return (
     <PageLayout>
@@ -48,7 +103,7 @@ export const GetQrRoute = () => {
                 <p>鍵が完成するまで</p>
                 <p>あと{3 - clearCount}個かけらをゲットしないと</p>
                 <p>いけないみたい...</p>
-                <Button className="mt-14">
+                <Button className="mt-14" onClick={handleClick}>
                   <p>冒険を続ける</p>
                 </Button>
               </div>
@@ -59,9 +114,3 @@ export const GetQrRoute = () => {
     </PageLayout>
   );
 };
-
-/**
- * 後で消す
- * このファイルでqrコードのかけらを取得した時の画面を表示する
- * 完成した瞬間(3つ揃った時)はここで3つ揃った時の画面を表示したのちにcompleted-qrに遷移する
- */
