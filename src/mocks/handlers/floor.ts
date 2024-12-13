@@ -43,13 +43,13 @@ export const floorHandler = [
         GameID: 'test',
         FloorNum: 2,
         Name: 'test',
-        Enabled: false,
+        Enabled: true,
       },
       {
         GameID: 'test',
         FloorNum: 3,
         Name: 'test',
-        Enabled: true,
+        Enabled: false,
       },
       {
         GameID: 'test',
@@ -61,7 +61,7 @@ export const floorHandler = [
         GameID: 'test',
         FloorNum: 5,
         Name: 'test',
-        Enable: false,
+        Enabled: true,
       },
       {
         GameID: 'test',

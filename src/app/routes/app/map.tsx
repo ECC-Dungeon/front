@@ -6,13 +6,10 @@ import MapTable from '@/feature/map/components/map-table.tsx';
 import { ContentLayout } from '@/components/layouts/content-layout';
 import ReaderButton from '@/feature/map/components/reader-button.tsx';
 import { QrScan } from '@/feature/map/components/qr-scan';
-// import { paths } from '@/config/paths';
 import { postFloor } from '@/feature/floor/api/get-floor';
 import Loading from '@/components/ui/loading/loading';
 
-// floor の型を 2 | 1 | 5 | 6 に制限
 export const MapRoute = () => {
-  // const navigate = useNavigate();
   const location = useLocation();
 
   const [reader, setReader] = useState(false);
@@ -21,21 +18,26 @@ export const MapRoute = () => {
 
   const fetchFloorData = useCallback(() => {
     try {
-      // `location.stateが存在し、適切な形式であるか確認
-      if (
-        location.state &&
-        location.state.msg &&
-        typeof location.state.msg.NextNum === 'number'
-      ) {
-        const nextNum = location.state.msg.NextNum;
+      const state = location.state;
+      console.log('states-m:', state);
+      console.log('state:', typeof state.msg.NextNum);
 
+      if (
+        state &&
+        typeof state === 'object' &&
+        'msg' in state &&
+        typeof state.msg === 'object' &&
+        'NextNum' in state.msg &&
+        typeof state.msg.NextNum === 'number'
+      ) {
+        const nextNum = state.msg.NextNum;
         if ([1, 2, 5, 6].includes(nextNum)) {
           setFloor(nextNum);
         } else {
           console.error('Invalid floor value:', nextNum);
         }
       } else {
-        console.error('Invalid location.state structure:', location.state);
+        console.error('Invalid location.state structure:', state);
       }
     } catch (error) {
       console.error('Error fetching floor data:', error);
@@ -46,7 +48,7 @@ export const MapRoute = () => {
 
   useEffect(() => {
     fetchFloorData();
-  }, [fetchFloorData]);
+  }, []);
 
   const handlePostFloor = () => {
     postFloor(localStorage.getItem('token')?.toString() || '');
@@ -83,13 +85,7 @@ export const MapRoute = () => {
                 className="absolute right-4 top-4 rounded-full bg-gray-700 px-4 py-2 text-white"
                 onClick={() => setReader(false)} // 閉じるボタン
               ></button>
-              <QrScan
-              // onSuccess={() => {
-              //   navigate(paths.app.getQr.getHref(), {
-              //     replace: true
-              //   });
-              // }}
-              />
+              <QrScan />
             </div>
           </div>
         )}

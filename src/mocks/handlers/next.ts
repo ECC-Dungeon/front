@@ -1,19 +1,21 @@
-import { http } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { networkDelay } from '../utils';
 import { env } from '@/config/env';
-// import { db, persistDb } from '../db';
-
-// type ProgressProps = {
-//   name: string;
-// };
 
 export const progressHandler = [
-  http.get(`${env.API_URL}/game/floor`, async ({}) => {
+  http.post(`${env.API_URL}/game/next`, async () => {
     // ネットワーク遅延をシミュレート
     await networkDelay();
 
-    // const progress = db.teamName;
+    const test = [{
+      msg: {
+        NextNum: 1,
+        AllClear: false,
+        ClearFloor: [2,3],
+      },
+      result:"success"
+    }]
 
-    // return HttpResponse.json({ name: teamName });
+    return HttpResponse.json({ data: test });
   }),
 ];

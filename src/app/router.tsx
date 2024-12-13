@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import { paths } from '@/config/paths';
-// import { ProtectedRoute } from '@/lib/auth';
+import { ProtectedRoute } from '@/lib/auth';
 import { AppRoot, AppRootErrorBoundary } from './routes/app/root';
 
 function createAppRouter() {
@@ -28,9 +28,9 @@ function createAppRouter() {
       {
         path: paths.app.root.path,
         element: (
-          // <ProtectedRoute>
-          <AppRoot />
-          // </ProtectedRoute>
+          <ProtectedRoute>
+            <AppRoot />
+          </ProtectedRoute>
         ),
         ErrorBoundary: AppRootErrorBoundary,
         children: [
@@ -109,7 +109,7 @@ function createAppRouter() {
         ErrorBoundary: AppRootErrorBoundary,
       },
     ],
-    // { basename: '/user' },
+    { basename: '/user' },
   );
 }
 

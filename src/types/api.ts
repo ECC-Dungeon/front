@@ -27,11 +27,7 @@ export type TeamName = {
 
 // 使用する階層のエンティティ
 export type Floor = {
-  ID: string;
-  GameID: string;
   FloorNum: number;
-  Name: string;
-  Enabled: boolean;
 };
 
 // ゲーム進捗のエンティティ
