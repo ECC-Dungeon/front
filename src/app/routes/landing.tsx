@@ -5,6 +5,8 @@
 import { paths } from '@/config/paths';
 import { useNavigate } from 'react-router-dom';
 
+import Button from '@/components/ui/button/button';
+
 export const LandingRoute = () => {
   const navigate = useNavigate();
 
@@ -15,5 +17,14 @@ export const LandingRoute = () => {
       navigate(paths.auth.login.getHref());
     }
   };
-  return <button onClick={handleStart}>ゲームを始める</button>;
+
+  return (
+    <section className="flex h-screen flex-col items-center justify-center">
+      <img
+        src={`${import.meta.env.VITE_APP_URL}/user/ecc-dungeon-logo.webp`}
+        alt="ECCダンジョンメインロゴ"
+      />
+      <Button onClick={handleStart} children={'ゲームを始める'} />
+    </section>
+  );
 };
