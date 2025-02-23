@@ -7,7 +7,7 @@ import { MutationConfig } from '@/lib/query';
 
 // チーム名のスキーマ
 export const createTeamNameSchema = z.object({
-  NickName: z.string().min(2, 'Required'),
+  NickName: z.string().min(2, '名前を入力してね'),
 });
 
 // チーム名の入力値のスキーマ
