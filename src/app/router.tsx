@@ -118,5 +118,10 @@ export const Router = () => {
 
   const router = useMemo(() => createAppRouter(), [queryClient]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <RouterProvider
+      router={router}
+      future={{ v7_startTransition: true } as any}
+    />
+  );
 };
