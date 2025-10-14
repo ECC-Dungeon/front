@@ -82,7 +82,7 @@ const Floor = () => {
 
       {/* キャラクターとダイアログ */}
       <div className="absolute bottom-0 left-0 w-full">
-        <img src={character} alt="エコ" className="h-auto w-[370px]" />
+        <img src={character} alt="エコ" className="h-auto w-[370px] mx-auto" />
         <DialogBubble
           name="エコ"
           message={`はじめまして！<br>ECCダンジョンの案内係を担当するエコだよ！<br>今日はよろしくね。`}

@@ -1,6 +1,6 @@
 import dialogLeft from '@/assets/dialog_back.svg';
 import dialogRight from '@/assets/dialog_play.svg';
-import {  cva } from 'class-variance-authority';
+import { cva } from 'class-variance-authority';
 
 type DialogBubbleProps = {
   name: string;
@@ -45,7 +45,7 @@ export const DialogBubble = ({
   type = 'normal',
 }: DialogBubbleProps) => {
   return (
-    <div className="w-[372px]">
+    <div className="mx-auto w-[372px]">
       <div className="flex justify-between">
         {/* 名前表示用の四角 */}
         <div className="w-[372px]">
