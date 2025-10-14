@@ -13,23 +13,24 @@ export const MapRoute = () => {
   const location = useLocation();
 
   const [reader, setReader] = useState(false);
-  const [floor, setFloor] = useState<1 | 2 | 5 | 6>(1); // 初期値を `1` に設定
+  const [floor, setFloor] = useState<1 | 2 | 5 | 6>(2); // 初期値を `1` に設定
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchFloorData = useCallback(() => {
     try {
       const state = location.state;
       console.log('states-m:', state);
-      console.log('state:', typeof state.msg.NextNum);
 
       if (
         state &&
         typeof state === 'object' &&
         'msg' in state &&
+        state.msg &&
         typeof state.msg === 'object' &&
         'NextNum' in state.msg &&
         typeof state.msg.NextNum === 'number'
       ) {
+        console.log('state:', typeof state.msg.NextNum);
         const nextNum = state.msg.NextNum;
         if ([1, 2, 5, 6].includes(nextNum)) {
           setFloor(nextNum);
@@ -37,7 +38,7 @@ export const MapRoute = () => {
           console.error('Invalid floor value:', nextNum);
         }
       } else {
-        console.error('Invalid location.state structure:', state);
+        console.log('No valid state found, using default floor:', 1);
       }
     } catch (error) {
       console.error('Error fetching floor data:', error);
@@ -84,7 +85,9 @@ export const MapRoute = () => {
               <button
                 className="absolute top-4 right-4 rounded-full bg-gray-700 px-4 py-2 text-white"
                 onClick={() => setReader(false)} // 閉じるボタン
-              ></button>
+              >
+                閉じる
+              </button>
               <QrScan />
             </div>
           </div>
