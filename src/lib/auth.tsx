@@ -12,7 +12,7 @@ export const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   }
 
   try {
-    const gameToken = localStorage.getItem('gameToken');
+    const gameToken = localStorage.getItem('token');
     if (!gameToken) {
       console.log({
         pathname: location.pathname,

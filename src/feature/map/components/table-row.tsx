@@ -1,18 +1,22 @@
 import React from 'react';
 import { VariantProps, cva } from 'class-variance-authority';
 import { useNavigate } from 'react-router-dom';
+import { paths } from '@/config/paths';
 
 // 各階の説明を設定 0はダミー用
 const MissionData: Record<number, { description: string }> = {
   0: { description: '' },
   1: { description: '1F' },
   2: { description: '2F' },
+  3: { description: '3F' },
+  4: { description: '4F' },
   5: { description: '5F' },
   6: { description: '6F' },
+  7: { description: '7F' },
 };
 
 // 許可されたフロアの定義
-const MISSION_FLOORS = [0, 1, 2, 5, 6] as const;
+const MISSION_FLOORS = [0, 1, 2, 3, 4, 5, 6, 7] as const;
 type MissionFloor = (typeof MISSION_FLOORS)[number];
 
 // propsを定義
@@ -30,12 +34,15 @@ export const TableRowVariants = cva(
         0: 'bg-[#A3A3A333]',
         1: 'bg-[#62454180]',
         2: 'bg-[#63832D80]',
+        3: 'bg-[#2D838380]',
+        4: 'bg-[#2D838380]',
         5: 'bg-[#833B2D80]',
         6: 'bg-[#7A2D8380]',
+        7: 'bg-[#2D838380]',
       },
     },
     defaultVariants: {
-      floor: 1,
+      floor: 0,
     },
   },
 );

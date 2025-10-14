@@ -7,7 +7,7 @@ import { MutationConfig } from '@/lib/query';
 
 // チーム名のスキーマ
 export const createTeamNameSchema = z.object({
-  name: z.string().min(2, 'Required'),
+  NickName: z.string().min(2, '名前を入力してね'),
 });
 
 // チーム名の入力値のスキーマ
@@ -18,7 +18,18 @@ export const createDiscussion = ({
 }: {
   data: TeamNameInput;
 }): Promise<TeamName> => {
-  return api.post('/save/team-name', data);
+  return api.put(
+    '/admin/game/tname',
+    {
+      name: data.NickName,
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token'),
+      },
+    },
+  );
 };
 
 type TeamNameOptions = {

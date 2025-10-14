@@ -8,6 +8,7 @@ import {
 } from '@/feature/create-team-name/api/get-team-name';
 import { InputTeam } from '@/feature/create-team-name/components/create-team';
 import Loading from '@/components/ui/loading/loading';
+import { paths } from '@/config/paths';
 
 export const teamNameLoader = (queryClient: QueryClient) => async () => {
   const query = getTeamNameQueryOptions();
@@ -24,8 +25,11 @@ export const CreateTeamNameRoute = () => {
 
   // 副作用としてナビゲーションを実行
   useEffect(() => {
-    if (!teamName.isLoading && teamName.data) {
-      navigate('/app/explanation'); // データが存在する場合にリダイレクト
+    const name: string | undefined = teamName.data?.msg?.Name;
+    const nickName: string | undefined = teamName.data?.msg?.NickName;
+
+    if (!teamName.isLoading && name && nickName && name !== nickName) {
+      navigate(paths.app.explanation.getHref()); // データが存在する場合にリダイレクト
     }
   }, [teamName.isLoading, teamName.data, navigate]);
 
@@ -34,7 +38,7 @@ export const CreateTeamNameRoute = () => {
   }
 
   return (
-    <section className="flex h-svh flex-col items-center justify-center space-y-24 bg-main">
+    <section className="bg-main flex h-svh flex-col items-center justify-center space-y-24">
       <img src="/ecc-dungeon-logo.webp" alt="ECCダンジョンメインロゴ" />
       <InputTeam />
     </section>

@@ -3,6 +3,7 @@ import { DialogBubble } from '@/components/ui/dialog/dialog';
 import character from '@/assets/echo.png';
 import { IoIosArrowBack } from 'react-icons/io';
 import Stopwatch from '@/feature/map/components/stopwatch.tsx';
+import { paths } from '@/config/paths';
 
 // 背景画像のインポート
 import brown from '@/assets/background/floor1-bg.png';
@@ -36,7 +37,7 @@ const Floor = () => {
   console.log('floorData:', floorData);
 
   if (!floorData) {
-    navigate('/app/map'); // map.tsxにリダイレクト
+    navigate(paths.app.map.getHref()); // map.tsxにリダイレクト
     return null;
   }
 

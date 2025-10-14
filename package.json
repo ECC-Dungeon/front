@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "/user",
   "scripts": {
     "dev": "vite --host",
     "build": "tsc -b && vite build",
@@ -23,6 +24,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cors": "^2.8.5",
+    "easyqrcodejs": "^4.3.1",
     "jsqr": "^1.4.0",
     "msw": "^2.11.5",
     "nanoid": "^5.0.9",

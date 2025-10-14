@@ -1,6 +1,5 @@
 import Axios, { InternalAxiosRequestConfig } from 'axios';
 
-import { paths } from '@/config/paths';
 import { env } from '@/config/env';
 
 function authRequestInterceptor(config: InternalAxiosRequestConfig) {
@@ -22,16 +21,8 @@ api.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    const message = error.response?.data?.message || error.message;
-    alert(message);
+    const response = error.response;
 
-    if (error.response?.status === 401) {
-      const searchParams = new URLSearchParams();
-      const redirectTo =
-        searchParams.get('redirectTo') || window.location.pathname;
-      window.location.href = paths.auth.login.getHref(redirectTo);
-    }
-
-    return Promise.reject(error);
+    return response;
   },
 );

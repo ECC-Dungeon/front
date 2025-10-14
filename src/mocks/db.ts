@@ -3,19 +3,23 @@ import { nanoid } from 'nanoid';
 
 // モデルの定義
 const models = {
-  user: {
-    id: primaryKey(nanoid),
-    email: String,
-    password: String,
-    createdAt: () => Date.now(),
-  },
   team: {
+    TeamID: primaryKey(nanoid),
+    Name: String,
+    GameID: String,
+    Status: String,
+    NickName: String,
+    Creator: String,
+    CreatedAt: Number,
+  },
+  floor: {
     id: primaryKey(nanoid),
-    name: String,
-    createdAt: () => Date.now(),
+    GameID: String,
+    FloorNum: Number,
+    Name: String,
+    Enabled: Boolean,
   },
 };
-
 
 // モックでDBの作成
 export const db = factory(models);
