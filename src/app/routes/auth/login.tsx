@@ -9,7 +9,7 @@ export const LoginRoute = () => {
   const [searchParams] = useSearchParams();
   const redirectTo = searchParams.get('redirectTo');
   const gameToken = localStorage.getItem('gameToken');
-  
+
   useEffect(() => {
     if (gameToken) {
       navigate(`${paths.app.team.getHref()}`, {
