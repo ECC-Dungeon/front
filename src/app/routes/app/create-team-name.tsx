@@ -7,6 +7,7 @@ import {
   useTeam,
 } from '@/feature/create-team-name/api/get-team-name';
 import { InputTeam } from '@/feature/create-team-name/components/create-team';
+import Loading from '@/components/ui/loading/loading';
 
 export const teamNameLoader = (queryClient: QueryClient) => async () => {
   const query = getTeamNameQueryOptions();
@@ -29,12 +30,11 @@ export const CreateTeamNameRoute = () => {
   }, [teamName.isLoading, teamName.data, navigate]);
 
   if (teamName.isLoading) {
-    // TODO: ローディングコンポーネントに置き換え
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (
-    <section className="bg-main flex h-svh flex-col items-center justify-center space-y-24">
+    <section className="flex h-svh flex-col items-center justify-center space-y-24 bg-main">
       <img src="/ecc-dungeon-logo.webp" alt="ECCダンジョンメインロゴ" />
       <InputTeam />
     </section>
