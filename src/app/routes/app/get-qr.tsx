@@ -6,11 +6,15 @@ import QrPieces from '@/assets/qr-pieces.svg';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { paths } from '@/config/paths';
 
 export const GetQrRoute = () => {
-
-  const [clearCount, setClearCount] = useState<number>(3);
+  const [clearCount, setClearCount] = useState<number>(1);
   const navigate = useNavigate();
+
+  const handleContinueAdventure = () => {
+    navigate(paths.app.map.getHref());
+  };
 
   // clearCountに3を受け取った時、3秒経過で画面遷移
   useEffect(() => {
@@ -43,12 +47,12 @@ export const GetQrRoute = () => {
                 <p>ゲットした!</p>
               </div>
               <QrPiece pieceId={clearCount} className="my-12" />
-              <div className="font-sans text-xl font-semibold leading-loose text-white">
+              <div className="font-sans text-xl leading-loose font-semibold text-white">
                 <p>鍵が完成するまで</p>
                 <p>あと{3 - clearCount}個かけらをゲットしないと</p>
                 <p>いけないみたい...</p>
-                <Button className="mt-14">
-                  <p>冒険を続ける</p>
+                <Button className="mt-14" onClick={handleContinueAdventure}>
+                  冒険を続ける
                 </Button>
               </div>
             </>
