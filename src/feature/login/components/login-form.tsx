@@ -31,7 +31,6 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
             isOpen={modal}
             style={{
               content: {
-                width: '360px',
                 height: '360px',
                 padding: '0',
                 margin: 'auto',
