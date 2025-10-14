@@ -1,23 +1,20 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { DialogBubble } from '@/components/ui/dialog/dialog';
-import { useUser } from '@/lib/auth';
-// import { ContentLayout } from '@/components/layouts/content-layout';
 import character from '@/assets/echo.png';
-import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowBack } from 'react-icons/io';
 import Stopwatch from '@/feature/map/components/stopwatch.tsx';
 
 // 背景画像のインポート
-import brown from '@/assets/floor1-bg.png';
-import green from '@/assets/floor2-bg.png';
-import red from '@/assets/floor5-bg.png';
-import purple from '@/assets/floor6-bg.png';
+import brown from '@/assets/background/floor1-bg.png';
+import green from '@/assets/background/floor2-bg.png';
+import red from '@/assets/background/floor5-bg.png';
+import purple from '@/assets/background/floor6-bg.png';
 // マップ画像のインポート
-import first from '@/assets/floor1-map.png';
-import second from '@/assets/floor2-map.png';
-import fifth_sixth from '@/assets/floor5_6-map.png';
+import first from '@/assets/map/floor1-map.png';
+import second from '@/assets/map/floor2-map.png';
+import fifth_sixth from '@/assets/map/floor5_6-map.png';
 
 export const FloorRoute = () => {
-
   return <Floor />;
 };
 
