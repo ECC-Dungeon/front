@@ -7,14 +7,16 @@ export const progressHandler = [
     // ネットワーク遅延をシミュレート
     await networkDelay();
 
-    const test = [{
-      msg: {
-        NextNum: 1,
-        AllClear: false,
-        ClearFloor: [2,3],
+    const test = [
+      {
+        msg: {
+          NextNum: 5,
+          AllClear: false,
+          ClearFloor: [2],
+        },
+        result: 'success',
       },
-      result:"success"
-    }]
+    ];
 
     return HttpResponse.json({ data: test });
   }),

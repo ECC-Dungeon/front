@@ -53,7 +53,7 @@ export const teamNameHandler = [
       };
 
       // 正しいレスポンスを返却
-      return HttpResponse.json({ data: teamData });
+      return HttpResponse.json(teamData);
     } catch (error: any) {
       return HttpResponse.json(
         { message: error?.message || 'Failed to fetch team data' },
