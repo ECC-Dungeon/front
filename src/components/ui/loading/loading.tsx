@@ -12,8 +12,8 @@ const Loading = () => {
   }, []);
 
   return (
-    <div className="flex items-center justify-center h-[866px] w-[412px] bg-[#323232]">
-      <div className="flex items-center text-[#FFFFFF] text-4xl font-bold ml-14">
+    <div className="flex h-dvh w-full items-center justify-center bg-[#323232]">
+      <div className="ml-14 flex items-center text-4xl font-bold text-[#FFFFFF]">
         <div>Loading</div>
         <div className="w-16 text-left">{dots}</div>
       </div>
