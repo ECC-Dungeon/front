@@ -21,7 +21,7 @@ interface TableRowProps extends VariantProps<typeof TableRowVariants> {
   className?: string;
 }
 
-// 各階の背景色を設定　0はダミー用
+// 各階の背景色を設定0はダミー用
 export const TableRowVariants = cva(
   `text-white text-3xl font-semibold text-center`,
   {
@@ -47,7 +47,7 @@ const TableRow: React.FC<TableRowProps> = ({ floor = 0, className }) => {
   // 各階の詳細画面に遷移
   const handleRowClick = () => {
     if (floor == 0) return; //  0の時画面遷移しない
-    navigate('/app/floor', { state: {id : floor} });
+    navigate('/app/floor', { state: { id: floor } });
   };
 
   return (
