@@ -1,7 +1,11 @@
 import React from 'react';
-import TableRow from '@/feature/map/components/table-row';
+import { TableRow } from '@/feature/map/components/table-row';
 
-const MapTable: React.FC = () => {
+interface MapTableProps {
+  floor?: 1 | 2 | 5 | 6;
+}
+
+const MapTable: React.FC<MapTableProps> = ({ floor: currentFloor = 1 }) => {
   // 表示階を管理するboolean
   const MissionFloors: Record<number, boolean> = {
     1: false,
@@ -10,9 +14,8 @@ const MapTable: React.FC = () => {
     6: false,
   };
 
-  // TODO: API等から受け取った値をもとにMissionFloorsを更新する
-  const MissionFloor = 1; //  仮で設定 1,2,5,6以外を受け取るとエラー出る
-  MissionFloors[MissionFloor] = true; //  受け取った階をtrueにする
+  // 受け取った階をtrueにする
+  MissionFloors[currentFloor] = true;
 
   // tr要素を動的に生成
   const rows = [];

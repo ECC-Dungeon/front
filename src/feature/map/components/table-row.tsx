@@ -16,7 +16,7 @@ const MISSION_FLOORS = [0, 1, 2, 5, 6] as const;
 type MissionFloor = (typeof MISSION_FLOORS)[number];
 
 // propsを定義
-interface TableRowProps extends VariantProps<typeof TableRowVariants> {
+export interface TableRowProps extends VariantProps<typeof TableRowVariants> {
   floor?: MissionFloor;
   className?: string;
 }
@@ -40,7 +40,7 @@ export const TableRowVariants = cva(
   },
 );
 
-const TableRow: React.FC<TableRowProps> = ({ floor = 0, className }) => {
+export const TableRow: React.FC<TableRowProps> = ({ floor = 0, className }) => {
   const mission = MissionData[floor];
   const navigate = useNavigate();
 
