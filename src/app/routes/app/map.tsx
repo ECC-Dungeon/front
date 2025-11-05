@@ -19,8 +19,8 @@ export const MapRoute = () => {
 
   // フロア番号を設定（location.stateから取得）
   useEffect(() => {
-    // location.stateからデータを取得（QR読み取り後の遷移の場合）
     const state = location.state as any;
+
     if (
       state &&
       typeof state === 'object' &&
@@ -36,7 +36,6 @@ export const MapRoute = () => {
       }
     }
 
-    // ローディング終了
     setIsLoading(false);
   }, [location.state]);
 
