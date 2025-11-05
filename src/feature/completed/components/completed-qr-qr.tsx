@@ -7,11 +7,11 @@ export const CompletedQr: React.FC = ({}) => {
   const [isScaned] = useState<boolean>(false); //QRをスキャンしたかどうか
 
   return (
-    <div className="">
-      <div className="mt-60">
+    <div className="flex h-full flex-col justify-between">
+      <div>
         <CreatedQr />
       </div>
-      <div className="mt-28 text-center">
+      <div className="text-center">
         {!isScaned ? (
           <Button>
             <p>お宝獲得</p>
