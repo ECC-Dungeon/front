@@ -57,7 +57,7 @@ export const MapRoute = () => {
           <Progress progress={0} />
         </div>
         {isLoading ? (
-          <div className="absolute top-0 text-white">
+          <div className="absolute top-0 w-full text-white">
             <Loading />
           </div>
         ) : (
