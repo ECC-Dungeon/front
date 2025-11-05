@@ -8,11 +8,11 @@ export const floorHandler = [
     // ネットワーク遅延をシミュレート
     await networkDelay();
 
-    // ヘッダーからGameIDを取得
-    const gameId = request.headers.get('GameID');
+    // ヘッダーからgameidを取得
+    const gameId = request.headers.get('gameid');
     if (gameId === null) {
       return HttpResponse.json(
-        { result: 'error', msg: 'GameID is required' },
+        { result: 'error', msg: 'gameid is required' },
         { status: 400 },
       );
     }
@@ -32,11 +32,11 @@ export const floorHandler = [
   http.post(`${env.API_URL}/admin/game/floor`, async ({ request }) => {
     await networkDelay();
 
-    // ヘッダーからGameIDを取得
-    const gameId = request.headers.get('GameID');
+    // ヘッダーからgameidを取得
+    const gameId = request.headers.get('gameid');
     if (gameId === null) {
       return HttpResponse.json(
-        { result: 'error', msg: 'GameID is required' },
+        { result: 'error', msg: 'gameid is required' },
         { status: 400 },
       );
     }

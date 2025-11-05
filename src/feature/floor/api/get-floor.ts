@@ -10,12 +10,12 @@ interface FloorResponse {
 
 /**
  * Get floor configuration
- * @param gameId - Game ID (sent as GameID header)
+ * @param gameId - Game ID (sent as gameid header)
  */
 export const getFloor = async (gameId: string): Promise<FloorResponse> => {
   return api.get('/admin/game/floor', {
     headers: {
-      GameID: gameId,
+      gameid: gameId,
     },
   });
 };
@@ -42,12 +42,12 @@ export const useFloor = ({ gameId, queryConfig }: UseFloorOptions) => {
 
 /**
  * Post floor action (submit)
- * @param gameId - Game ID (sent as GameID header)
+ * @param gameId - Game ID (sent as gameid header)
  */
 export const postFloor = async (gameId: string): Promise<Floor[]> => {
   return api.post('/admin/game/floor', null, {
     headers: {
-      GameID: gameId,
+      gameid: gameId,
     },
   });
 };
