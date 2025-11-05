@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGameStatus } from '@/lib/game-status';
 import { ContentLayout } from '@/components/layouts/content-layout';
 import Button from '@/components/ui/button/button';
-import { paths } from '@/config/paths';
+// import { paths } from '@/config/paths';
 import { useNextFloor } from '@/lib/next';
 
 export const ExplanationRoute = () => {
@@ -27,11 +27,12 @@ export const ExplanationRoute = () => {
     },
   });
 
-  useEffect(() => {
-    if (data.data?.result === 'success') {
-      navigate(paths.app.map.getHref(), { replace: true });
-    }
-  }, [data.data, navigate]);
+  // 念の為残してる
+  // useEffect(() => {
+  //   if (data.data?.result === 'success') {
+  //     navigate(paths.app.map.getHref(), { replace: true });
+  //   }
+  // }, [data.data, navigate]);
 
   // ボタンが押された時の処理
   const handleClick = async () => {
