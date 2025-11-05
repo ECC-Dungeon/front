@@ -5,17 +5,7 @@ import { QueryConfig } from './query';
 import { GameStatus } from '@/types/api';
 
 export const getGameStatus = (): Promise<GameStatus> => {
-  const token = localStorage.getItem('token') || '';
-  return api.post(
-    '/admin/game/start2',
-    {},
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: token,
-      },
-    },
-  );
+  return api.post('/admin/game/start2', {});
 };
 
 export const getGameStatusQueryOptions = () => {

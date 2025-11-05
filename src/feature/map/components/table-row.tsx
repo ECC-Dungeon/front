@@ -1,7 +1,6 @@
 import React from 'react';
 import { VariantProps, cva } from 'class-variance-authority';
 import { useNavigate } from 'react-router-dom';
-import { paths } from '@/config/paths';
 
 // 各階の説明を設定 0はダミー用
 const MissionData: Record<number, { description: string }> = {

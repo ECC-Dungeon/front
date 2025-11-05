@@ -4,7 +4,7 @@ import { env } from '@/config/env';
 import { db, persistDb } from '../db';
 
 export const floorHandler = [
-  http.get(`${env.API_URL}/game/floor`, async ({ request }) => {
+  http.get(`${env.API_URL}/admin/game/floor`, async ({ request }) => {
     // ネットワーク遅延をシミュレート
     await networkDelay();
 
@@ -12,7 +12,7 @@ export const floorHandler = [
     const gameId = request.headers.get('GameID');
     if (gameId === null) {
       return HttpResponse.json(
-        { message: 'GameID is required' },
+        { result: 'error', msg: 'GameID is required' },
         { status: 400 },
       );
     }
@@ -26,51 +26,60 @@ export const floorHandler = [
       },
     });
 
-    return HttpResponse.json({ name: floor });
+    return HttpResponse.json({ result: 'success', msg: floor });
   }),
 
-  http.post(`${env.API_URL}/game/floor`, async ({}) => {
+  http.post(`${env.API_URL}/admin/game/floor`, async ({ request }) => {
     await networkDelay();
+
+    // ヘッダーからGameIDを取得
+    const gameId = request.headers.get('GameID');
+    if (gameId === null) {
+      return HttpResponse.json(
+        { result: 'error', msg: 'GameID is required' },
+        { status: 400 },
+      );
+    }
 
     const test = [
       {
-        GameID: 'test',
+        GameID: gameId,
         FloorNum: 1,
         Name: 'test',
         Enabled: true,
       },
       {
-        GameID: 'test',
+        GameID: gameId,
         FloorNum: 2,
         Name: 'test',
         Enabled: true,
       },
       {
-        GameID: 'test',
+        GameID: gameId,
         FloorNum: 3,
         Name: 'test',
         Enabled: false,
       },
       {
-        GameID: 'test',
+        GameID: gameId,
         FloorNum: 4,
         Name: 'test',
         Enabled: false,
       },
       {
-        GameID: 'test',
+        GameID: gameId,
         FloorNum: 5,
         Name: 'test',
         Enabled: true,
       },
       {
-        GameID: 'test',
+        GameID: gameId,
         FloorNum: 6,
         Name: 'test',
         Enabled: true,
       },
       {
-        GameID: 'test',
+        GameID: gameId,
         FloorNum: 7,
         Name: 'test',
         Enabled: false,
@@ -84,6 +93,6 @@ export const floorHandler = [
 
     await persistDb('floor');
 
-    return HttpResponse.json({ message: 'success' });
+    return HttpResponse.json({ result: 'success' });
   }),
 ];

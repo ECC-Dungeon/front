@@ -16,12 +16,7 @@ interface ApiResponse {
 }
 
 export const getTeamName = (): Promise<ApiResponse> => {
-  return api.get('/admin/game/team', {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: localStorage.getItem('token'),
-    },
-  });
+  return api.get('/admin/game/team');
 };
 
 export const getTeamNameQueryOptions = () => {

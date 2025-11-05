@@ -6,7 +6,7 @@ import MapTable from '@/feature/map/components/map-table.tsx';
 import { ContentLayout } from '@/components/layouts/content-layout';
 import ReaderButton from '@/feature/map/components/reader-button.tsx';
 import { QrScan } from '@/feature/map/components/qr-scan';
-import { postFloor } from '@/feature/floor/api/get-floor';
+import { usePostFloor } from '@/feature/floor/api/get-floor';
 import Loading from '@/components/ui/loading/loading';
 
 export const MapRoute = () => {
@@ -14,6 +14,8 @@ export const MapRoute = () => {
   const [reader, setReader] = useState<boolean>(false);
   const [floor, setFloor] = useState<1 | 2 | 5 | 6>(2);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const postFloorMutation = usePostFloor();
 
   // フロア番号を設定（location.stateから取得）
   useEffect(() => {
@@ -39,7 +41,8 @@ export const MapRoute = () => {
   }, [location.state]);
 
   const handlePostFloor = () => {
-    postFloor(localStorage.getItem('token')?.toString() || '');
+    const token = localStorage.getItem('token')?.toString() || '';
+    postFloorMutation.mutate(token);
   };
 
   return (

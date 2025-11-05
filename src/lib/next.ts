@@ -25,16 +25,7 @@ export const getNextFloor = async ({
 }: {
   data: NextFloorInput;
 }): Promise<ApiResponse> => {
-  return await api.post(
-    '/game/next',
-    { clear_floor: data.clear_floor },
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('token') || '',
-      },
-    },
-  );
+  return await api.post('/game/next', { clear_floor: data.clear_floor });
 };
 
 type NextQueryOptions = {

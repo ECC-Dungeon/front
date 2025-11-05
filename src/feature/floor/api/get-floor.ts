@@ -1,27 +1,74 @@
-import { env } from '@/config/env';
+import { queryOptions, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { api } from '@/lib/api-client';
+import { QueryConfig, MutationConfig } from '@/lib/query';
 import { Floor } from '@/types/api';
 
-export const getFloor = async (token: string) => {
-  const response = await fetch(`${env.API_URL}/admin/game/floor`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      GameID: token,
-    },
-  });
-  const data = await response.json();
-  return data;
-};
+interface FloorResponse {
+  result: string;
+  msg: Floor[];
+}
 
-export const postFloor = async (gameId: string) => {
-  console.log('postFloor');
-  const response = await fetch(`${env.API_URL}/admin/game/floor`, {
-    method: 'POST',
+/**
+ * Get floor configuration
+ * @param gameId - Game ID (sent as GameID header)
+ */
+export const getFloor = async (gameId: string): Promise<FloorResponse> => {
+  return api.get('/admin/game/floor', {
     headers: {
-      'Content-Type': 'application/json',
       GameID: gameId,
     },
   });
-  const data: Floor[] = await response.json();
-  return data;
+};
+
+export const getFloorQueryOptions = (gameId: string) => {
+  return queryOptions({
+    queryKey: ['floor', gameId],
+    queryFn: () => getFloor(gameId),
+    enabled: !!gameId,
+  });
+};
+
+type UseFloorOptions = {
+  gameId: string;
+  queryConfig?: QueryConfig<typeof getFloor>;
+};
+
+export const useFloor = ({ gameId, queryConfig }: UseFloorOptions) => {
+  return useQuery({
+    ...getFloorQueryOptions(gameId),
+    ...queryConfig,
+  });
+};
+
+/**
+ * Post floor action (submit)
+ * @param gameId - Game ID (sent as GameID header)
+ */
+export const postFloor = async (gameId: string): Promise<Floor[]> => {
+  return api.post('/admin/game/floor', null, {
+    headers: {
+      GameID: gameId,
+    },
+  });
+};
+
+type PostFloorOptions = {
+  mutationConfig?: MutationConfig<typeof postFloor>;
+};
+
+export const usePostFloor = ({ mutationConfig }: PostFloorOptions = {}) => {
+  const queryClient = useQueryClient();
+
+  const { onSuccess, ...restConfig } = mutationConfig || {};
+
+  return useMutation({
+    onSuccess: (data, variables, ...args) => {
+      queryClient.invalidateQueries({
+        queryKey: ['floor'],
+      });
+      onSuccess?.(data, variables, ...args);
+    },
+    ...restConfig,
+    mutationFn: postFloor,
+  });
 };

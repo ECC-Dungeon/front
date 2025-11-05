@@ -28,7 +28,7 @@ export const ExplanationRoute = () => {
   });
 
   useEffect(() => {
-    if (data.data?.msg === 'success') {
+    if (data.data?.result === 'success') {
       navigate(paths.app.map.getHref(), { replace: true });
     }
   }, [data.data, navigate]);

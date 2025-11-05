@@ -9,7 +9,6 @@ export const useQrScanner = () => {
 
   useEffect(() => {
     let isActive = true;
-    let animationFrameId: number | null = null;
 
     const constraints = {
       video: {
