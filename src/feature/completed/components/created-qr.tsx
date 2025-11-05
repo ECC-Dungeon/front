@@ -1,13 +1,17 @@
-import React, { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import QRCode from 'easyqrcodejs';
 import picKey from '@/assets/key.svg';
 import qrBackground from '@/assets/bg-qr.png';
 
 function CreatedQr() {
-  const code = React.createRef<HTMLDivElement>();
+  const codeRef = useRef<HTMLDivElement>(null);
+  const qrInstanceRef = useRef<QRCode | null>(null);
 
   useEffect(() => {
-    new QRCode(code.current, {
+    // 既にDOMに子要素がある場合はスキップ
+    if (!codeRef.current || codeRef.current.children.length > 0) return;
+
+    qrInstanceRef.current = new QRCode(codeRef.current, {
       text: 'https://github.com/ECC-Dungeon/front/blob/feature/completed/src/feature/completed-qr/components/completed-qr-qr.tsx',
       width: 170,
       height: 170,
@@ -18,18 +22,25 @@ function CreatedQr() {
       logoHeight: 50,
       logoBackgroundTransparent: true,
     });
-  }, [code]);
+
+    // クリーンアップ
+    return () => {
+      if (codeRef.current && !document.contains(codeRef.current)) {
+        qrInstanceRef.current = null;
+      }
+    };
+  }, []);
 
   return (
     <div className="relative flex h-64 items-center">
       <img
         src={qrBackground}
         alt="qrコード背景"
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform"
       />
       <div
-        ref={code}
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform"
+        ref={codeRef}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform"
       ></div>
     </div>
   );
