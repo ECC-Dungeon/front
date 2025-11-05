@@ -74,7 +74,7 @@ export const QrScan = () => {
       )}
       {error && <p className="text-center text-xs text-red-500">{error}</p>}
       {!result && !error && (
-        <div className="absolute top-0 text-center text-gray-500">
+        <div className="absolute top-0 w-full text-center text-gray-500">
           <Loading />
         </div>
       )}
