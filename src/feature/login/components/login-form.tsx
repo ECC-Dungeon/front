@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import { QrScan } from './qr-scan';
 import Button from '@/components/ui/button/button';
@@ -11,6 +11,11 @@ type LoginFormProps = {
 
 export const LoginForm = ({ onSuccess }: LoginFormProps) => {
   const [modal, setModal] = useState(false);
+
+  useEffect(() => {
+    // React Modalのアクセシビリティ設定
+    Modal.setAppElement('#root');
+  }, []);
 
   const openModal = () => {
     setModal(true);

@@ -2,17 +2,10 @@ import { queryOptions, useQuery } from '@tanstack/react-query';
 
 import { api } from '@/lib/api-client';
 import { QueryConfig } from './query';
+import { GameStatus } from '@/types/api';
 
-interface ApiResponse {
-  msg: string;
-  result: string;
-}
-
-export const getGameStatus = (): Promise<ApiResponse> => {
-  const token = localStorage.getItem('token');
-  if (!token) {
-    return Promise.reject(new Error('Authorization token is missing'));
-  }
+export const getGameStatus = (): Promise<GameStatus> => {
+  const token = localStorage.getItem('token') || '';
   return api.post(
     '/admin/game/start2',
     {},
@@ -27,8 +20,9 @@ export const getGameStatus = (): Promise<ApiResponse> => {
 
 export const getGameStatusQueryOptions = () => {
   return queryOptions({
-    queryKey: ['status'],
+    queryKey: ['game-status'],
     queryFn: getGameStatus,
+    staleTime: 1000 * 60 * 5, // 5分間キャッシュ
   });
 };
 
