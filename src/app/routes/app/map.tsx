@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Progress from '@/feature/map/components/progress.tsx';
 import Stopwatch from '@/feature/map/components/stopwatch.tsx';
@@ -11,45 +11,32 @@ import Loading from '@/components/ui/loading/loading';
 
 export const MapRoute = () => {
   const location = useLocation();
+  const [reader, setReader] = useState<boolean>(false);
+  const [floor, setFloor] = useState<1 | 2 | 5 | 6>(2);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const [reader, setReader] = useState(false);
-  const [floor, setFloor] = useState<1 | 2 | 5 | 6>(2); // 初期値を `1` に設定
-  const [isLoading, setIsLoading] = useState(true);
-
-  const fetchFloorData = useCallback(() => {
-    try {
-      const state = location.state;
-      console.log('states-m:', state);
-
-      if (
-        state &&
-        typeof state === 'object' &&
-        'msg' in state &&
-        state.msg &&
-        typeof state.msg === 'object' &&
-        'NextNum' in state.msg &&
-        typeof state.msg.NextNum === 'number'
-      ) {
-        console.log('state:', typeof state.msg.NextNum);
-        const nextNum = state.msg.NextNum;
-        if ([1, 2, 5, 6].includes(nextNum)) {
-          setFloor(nextNum);
-        } else {
-          console.error('Invalid floor value:', nextNum);
-        }
-      } else {
-        console.log('No valid state found, using default floor:', 1);
-      }
-    } catch (error) {
-      console.error('Error fetching floor data:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [location.state]);
-
+  // フロア番号を設定（location.stateから取得）
   useEffect(() => {
-    fetchFloorData();
-  }, []);
+    // location.stateからデータを取得（QR読み取り後の遷移の場合）
+    const state = location.state as any;
+    if (
+      state &&
+      typeof state === 'object' &&
+      'msg' in state &&
+      state.msg &&
+      typeof state.msg === 'object' &&
+      'NextNum' in state.msg &&
+      typeof state.msg.NextNum === 'number'
+    ) {
+      const nextNum = state.msg.NextNum;
+      if ([1, 2, 5, 6].includes(nextNum)) {
+        setFloor(nextNum as 1 | 2 | 5 | 6);
+      }
+    }
+
+    // ローディング終了
+    setIsLoading(false);
+  }, [location.state]);
 
   const handlePostFloor = () => {
     postFloor(localStorage.getItem('token')?.toString() || '');

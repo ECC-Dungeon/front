@@ -13,7 +13,6 @@ export const getGameStatus = (): Promise<GameStatus> => {
       headers: {
         'Content-Type': 'application/json',
         Authorization: token,
-        GameID: token,
       },
     },
   );

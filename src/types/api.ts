@@ -51,3 +51,12 @@ export type ApiResponse = {
   msg: TeamData;
   result: string;
 };
+
+export type GameStatus = {
+  msg: {
+    NextNum: number;
+    AllClear: boolean;
+    CleardFloor: number[];
+  };
+  result: string;
+};
