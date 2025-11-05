@@ -18,13 +18,13 @@ export const CompletedEcho: React.FC<CompletedEchoProps> = ({
   };
 
   return (
-    <div className="relative h-screen">
+    <div className="absolute size-full">
       <img
         src={CharacterFull}
         alt="エコ"
-        className="absolute bottom-0 left-1/2 z-0 -translate-x-1/2 transform"
+        className="relative left-1/2 -translate-x-1/2"
       />
-      <div className="absolute bottom-64 left-1/2 -translate-x-1/2 transform">
+      <div className="absolute bottom-16 left-1/2 -translate-x-1/2">
         <DialogBubble
           size="small"
           type="none"
@@ -32,7 +32,7 @@ export const CompletedEcho: React.FC<CompletedEchoProps> = ({
           message={`よく頑張ったおめでとう!<br>１階の宝箱のところまで行こう`}
         />
       </div>
-      <div className="absolute bottom-32 left-1/2 -translate-x-1/2 transform">
+      <div className="absolute -bottom-16 left-1/2 -translate-x-1/2">
         <Button onClick={handleClick}>
           <p>QRコードをかざす</p>
         </Button>
