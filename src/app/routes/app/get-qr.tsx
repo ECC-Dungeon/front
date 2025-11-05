@@ -80,11 +80,11 @@ export const GetQrRoute = () => {
 
   return (
     <PageLayout>
-      <div className="relative flex h-full justify-center pt-28 text-center">
+      <div className="h-screen">
         <CircleGradation>
           {clearCount === 3 ? (
             <>
-              <div className="font-sans text-4xl font-semibold text-white">
+              <div className="text-center font-sans text-4xl font-semibold text-white">
                 <p>QRコードのかけらを</p>
                 <p>全てゲットした!</p>
               </div>
@@ -94,12 +94,12 @@ export const GetQrRoute = () => {
             </>
           ) : (
             <>
-              <div className="font-sans text-4xl font-semibold text-white">
+              <div className="text-center font-sans text-4xl font-semibold text-white">
                 <p>QRコードのかけらを</p>
                 <p>ゲットした!</p>
               </div>
               <QrPiece pieceId={clearCount} className="my-12" />
-              <div className="font-sans text-xl leading-loose font-semibold text-white">
+              <div className="text-center font-sans text-xl leading-loose font-semibold text-white">
                 <p>鍵が完成するまで</p>
                 <p>あと{3 - clearCount}個かけらをゲットしないと</p>
                 <p>いけないみたい...</p>
