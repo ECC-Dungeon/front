@@ -1,7 +1,7 @@
 import { http, HttpResponse } from 'msw';
 import { networkDelay } from '../utils';
 import { env } from '@/config/env';
-import { getGameProgress } from '../floor-manager';
+import { initializeFloorDb } from '../floor-manager';
 
 export const gameStatusHandler = [
   // ゲームステータス取得
@@ -19,18 +19,18 @@ export const gameStatusHandler = [
       // トークンがない場合は、デフォルトのチームIDを使用
       if (!teamId) {
         teamId = 'default-team';
-        console.warn('No token provided, using default team ID');
       }
 
-      // 現在のゲーム進捗を取得（クリア済みフロアを除外）
-      const result = await getGameProgress(teamId);
+      // DBから現在の進捗を確認（新規フロア割り当ては行わない）
+      const db = await initializeFloorDb();
+      const progress = db.gameProgress.find((p) => p.teamId === teamId);
 
       const status = {
         result: 'success',
         msg: {
-          NextNum: result.currentFloor,
-          AllClear: result.allClear,
-          CleardFloor: result.clearedFloors,
+          NextNum: progress?.currentFloor || -1, // 進捗がない場合は-1
+          AllClear: false,
+          CleardFloor: progress?.clearedFloors || [],
         },
       };
 

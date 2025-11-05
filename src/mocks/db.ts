@@ -32,6 +32,7 @@ const dbFilePath = 'mocked-db.json';
 // データベースの初期化
 export const initializeDb = async () => {
   const database = await loadDb();
+
   Object.entries(db).forEach(([key, model]) => {
     const dataEntre = database[key];
     if (dataEntre) {
@@ -62,9 +63,9 @@ export const loadDb = async () => {
     }
   }
 
-  return Object.assign(
-    JSON.parse(window.localStorage.getItem('msw-db') || '{}'),
-  );
+  const stored = window.localStorage.getItem('msw-db');
+  const result = Object.assign(JSON.parse(stored || '{}'));
+  return result;
 };
 
 // データの保存を行う

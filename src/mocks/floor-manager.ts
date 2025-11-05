@@ -30,7 +30,7 @@ const AVAILABLE_FLOORS = [2, 5, 6];
 /**
  * データベースの初期化（初回のみ）
  */
-const initializeFloorDb = async (): Promise<MockDb> => {
+export const initializeFloorDb = async (): Promise<MockDb> => {
   let db = (await loadDb()) as MockDb;
 
   // floors が存在しない場合、初期データで初期化
@@ -71,20 +71,24 @@ const initializeFloorDb = async (): Promise<MockDb> => {
           maxCapacity: 5,
         },
       ],
-      gameProgress: db.gameProgress || [],
+      gameProgress: [],
     };
     await storeDb(JSON.stringify(db, null, 2));
   }
 
+  // gameProgressが存在しない場合、初期化
+  if (!db.gameProgress || !Array.isArray(db.gameProgress)) {
+    db.gameProgress = [];
+    await storeDb(JSON.stringify(db, null, 2));
+  }
   return db;
 };
 
 /**
  * ランダムにフロアを選択（初回）
+ * 注意: この関数を呼ぶ前に initializeFloorDb() を呼ぶこと
  */
-export const getRandomFloor = async (): Promise<number> => {
-  await initializeFloorDb();
-
+export const getRandomFloor = (): number => {
   // AVAILABLE_FLOORSから直接ランダムに選択
   if (AVAILABLE_FLOORS.length === 0) {
     return 1; // デフォルト
@@ -103,14 +107,6 @@ export const getRandomFloor = async (): Promise<number> => {
   // 最初の値を使用
   const randomIndex = randomBytes[0] % AVAILABLE_FLOORS.length;
   const selectedFloor = AVAILABLE_FLOORS[randomIndex];
-
-  console.log('Random floor selection DEBUG:', {
-    AVAILABLE_FLOORS,
-    tests,
-    selectedIndex: randomIndex,
-    selectedFloor,
-    allTests: tests.map((t) => t.mod3),
-  });
 
   return selectedFloor;
 };
@@ -132,7 +128,7 @@ export const getGameProgress = async (
 
   if (!progress) {
     // 初回: ランダムにフロアを割り当て
-    const randomFloor = await getRandomFloor();
+    const randomFloor = getRandomFloor();
     const newProgress = {
       teamId,
       currentFloor: randomFloor,
@@ -196,7 +192,7 @@ export const getLeastCongestedFloor = async (
 
   if (!progress) {
     // 初回: ランダムにフロアを割り当て
-    const randomFloor = await getRandomFloor();
+    const randomFloor = getRandomFloor();
     progress = {
       teamId,
       currentFloor: randomFloor,
