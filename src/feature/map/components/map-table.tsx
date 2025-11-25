@@ -2,7 +2,7 @@ import React from 'react';
 import { TableRow } from '@/feature/map/components/table-row';
 
 interface MapTableProps {
-  floor?: 1 | 2 | 5 | 6;
+  floor?: 1 | 2 | 3 | 4 | 5 | 6;
 }
 
 const MapTable: React.FC<MapTableProps> = ({ floor: currentFloor = 1 }) => {
@@ -10,6 +10,8 @@ const MapTable: React.FC<MapTableProps> = ({ floor: currentFloor = 1 }) => {
   const MissionFloors: Record<number, boolean> = {
     1: false,
     2: false,
+    3: false,
+    4: false,
     5: false,
     6: false,
   };
@@ -20,7 +22,7 @@ const MapTable: React.FC<MapTableProps> = ({ floor: currentFloor = 1 }) => {
   // tr要素を動的に生成
   const rows = [];
   for (let key in MissionFloors) {
-    const floor = parseInt(key) as 1 | 2 | 5 | 6;
+    const floor = parseInt(key) as 1 | 2 | 3 | 4 | 5 | 6;
     if (MissionFloors[floor]) {
       rows.unshift(<TableRow key={floor} floor={floor} />);
     } else {

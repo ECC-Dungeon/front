@@ -57,7 +57,7 @@ export const TableRow: React.FC<TableRowProps> = ({ floor = 0, className }) => {
   };
 
   return (
-    <tr onClick={handleRowClick} className={`h-32 ${className}`}>
+    <tr onClick={handleRowClick} className={`h-20 ${className}`}>
       <td className={TableRowVariants({ floor })}>{mission.description}</td>
     </tr>
   );

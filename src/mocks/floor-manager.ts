@@ -55,6 +55,22 @@ export const initializeFloorDb = async (): Promise<MockDb> => {
           maxCapacity: 5,
         },
         {
+          id: 'floor-3',
+          floorNum: 3,
+          name: '3F - 休憩所',
+          enabled: false,
+          currentCount: 0,
+          maxCapacity: 5,
+        },
+        {
+          id: 'floor-4',
+          floorNum: 4,
+          name: '4F - 図書室',
+          enabled: false,
+          currentCount: 0,
+          maxCapacity: 5,
+        },
+        {
           id: 'floor-5',
           floorNum: 5,
           name: '5F - 宝物庫',
