@@ -7,6 +7,7 @@ const QrSrc: Record<number, string> = {
   1: QrPiece1,
   2: QrPiece2,
   3: QrPiece3,
+  4: QrPiece2, // TODO: 4分割面倒なんや...とりあえずゴリ押しじゃ！ゲームしたいよーーー
 };
 
 interface QrPieceProps {
