@@ -22,6 +22,13 @@ export const teamNameLoader = (queryClient: QueryClient) => async () => {
 export const CreateTeamNameRoute = () => {
   const navigate = useNavigate();
   const teamName = useTeam();
+  // ローカルストレージにゲームIDを保存
+  useEffect(() => {
+    const gameId: string | undefined = teamName.data?.msg?.GameID;
+    if (gameId) {
+      localStorage.setItem('gameId', gameId);
+    }
+  }, [teamName.data]);
 
   // 副作用としてナビゲーションを実行
   useEffect(() => {

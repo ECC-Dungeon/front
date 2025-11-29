@@ -18,13 +18,40 @@ export const floorHandler = [
     }
 
     // ゲームIDからフロア情報を取得
-    const floor = db.floor.findMany({
+    let floor = db.floor.findMany({
       where: {
         GameID: {
           equals: gameId,
         },
       },
     });
+
+    // データがない場合は初期データを作成
+    if (floor.length === 0) {
+      const initialFloors = [
+        { GameID: gameId, FloorNum: 1, Name: 'エントランス', Enabled: true },
+        { GameID: gameId, FloorNum: 2, Name: '謎の部屋', Enabled: true },
+        { GameID: gameId, FloorNum: 3, Name: '休憩所', Enabled: true },
+        { GameID: gameId, FloorNum: 4, Name: '図書室', Enabled: false },
+        { GameID: gameId, FloorNum: 5, Name: '宝物庫', Enabled: true },
+        { GameID: gameId, FloorNum: 6, Name: 'ボス部屋', Enabled: true },
+        { GameID: gameId, FloorNum: 7, Name: '秘密の部屋', Enabled: false },
+      ];
+
+      initialFloors.forEach((data) => {
+        db.floor.create(data);
+      });
+
+      await persistDb('floor');
+
+      floor = db.floor.findMany({
+        where: {
+          GameID: {
+            equals: gameId,
+          },
+        },
+      });
+    }
 
     return HttpResponse.json({ result: 'success', msg: floor });
   }),

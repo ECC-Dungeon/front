@@ -16,6 +16,7 @@ export const MapRoute = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const postFloorMutation = usePostFloor();
+  const gameId = localStorage.getItem('gameId') || '';
 
   // フロア番号を設定（location.stateから取得）
   useEffect(() => {
@@ -46,7 +47,7 @@ export const MapRoute = () => {
 
   return (
     <ContentLayout>
-      <div className="relative">
+      <div className="relative h-full">
         <div className="flex items-center justify-center space-x-12 pt-20 pb-7">
           <div className="text-center text-white">
             <p className="" onClick={handlePostFloor}>
@@ -56,7 +57,7 @@ export const MapRoute = () => {
               <Stopwatch />
             </div>
           </div>
-          <Progress progress={0} />
+          <Progress progress={0} gameId={gameId} />
         </div>
         {isLoading ? (
           <div className="absolute top-0 w-full text-white">
