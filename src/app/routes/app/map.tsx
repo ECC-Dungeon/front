@@ -12,8 +12,9 @@ import Loading from '@/components/ui/loading/loading';
 export const MapRoute = () => {
   const location = useLocation();
   const [reader, setReader] = useState<boolean>(false);
-  const [floor, setFloor] = useState<1 | 2 | 5 | 6>(2);
+  const [floor, setFloor] = useState<1 | 2 | 3 | 4 | 5 | 6>(2);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [clearedFloor, setClearedFloor] = useState<0 | 1 | 2 | 3 | 4>(0);
 
   const postFloorMutation = usePostFloor();
   const gameId = localStorage.getItem('gameId') || '';
@@ -32,11 +33,11 @@ export const MapRoute = () => {
       typeof state.msg.NextNum === 'number'
     ) {
       const nextNum = state.msg.NextNum;
-      if ([1, 2, 5, 6].includes(nextNum)) {
-        setFloor(nextNum as 1 | 2 | 5 | 6);
+      if ([1, 2, 3, 4, 5, 6].includes(nextNum)) {
+        setFloor(nextNum as 1 | 2 | 3 | 4 | 5 | 6);
       }
     }
-
+    setClearedFloor(state.msg?.CleardFloor.length || 0);
     setIsLoading(false);
   }, [location.state]);
 
@@ -57,7 +58,7 @@ export const MapRoute = () => {
               <Stopwatch />
             </div>
           </div>
-          <Progress progress={0} gameId={gameId} />
+          <Progress progress={clearedFloor} gameId={gameId} />
         </div>
         {isLoading ? (
           <div className="absolute top-0 w-full text-white">
