@@ -34,8 +34,7 @@ export const floorHandler = [
         { GameID: gameId, FloorNum: 3, Name: '休憩所', Enabled: true },
         { GameID: gameId, FloorNum: 4, Name: '図書室', Enabled: false },
         { GameID: gameId, FloorNum: 5, Name: '宝物庫', Enabled: true },
-        { GameID: gameId, FloorNum: 6, Name: 'ボス部屋', Enabled: true },
-        { GameID: gameId, FloorNum: 7, Name: '秘密の部屋', Enabled: false },
+        { GameID: gameId, FloorNum: 6, Name: 'ボス部屋', Enabled: false },
       ];
 
       initialFloors.forEach((data) => {
@@ -104,12 +103,6 @@ export const floorHandler = [
         FloorNum: 6,
         Name: 'test',
         Enabled: true,
-      },
-      {
-        GameID: gameId,
-        FloorNum: 7,
-        Name: 'test',
-        Enabled: false,
       },
     ];
 

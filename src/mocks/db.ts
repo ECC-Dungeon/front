@@ -43,59 +43,53 @@ export const initializeDb = async () => {
   });
 
   // 初期フロアデータがない場合は作成
-  if (db.floor.count() === 0) {
-    const defaultGameId = 'default-game';
-    const initialFloors = [
-      {
-        GameID: defaultGameId,
-        FloorNum: 1,
-        Name: 'エントランス',
-        Enabled: true,
-      },
-      {
-        GameID: defaultGameId,
-        FloorNum: 2,
-        Name: '謎の部屋',
-        Enabled: true,
-      },
-      {
-        GameID: defaultGameId,
-        FloorNum: 3,
-        Name: '休憩所',
-        Enabled: false,
-      },
-      {
-        GameID: defaultGameId,
-        FloorNum: 4,
-        Name: '図書室',
-        Enabled: false,
-      },
-      {
-        GameID: defaultGameId,
-        FloorNum: 5,
-        Name: '宝物庫',
-        Enabled: true,
-      },
-      {
-        GameID: defaultGameId,
-        FloorNum: 6,
-        Name: 'ボス部屋',
-        Enabled: true,
-      },
-      {
-        GameID: defaultGameId,
-        FloorNum: 7,
-        Name: '秘密の部屋',
-        Enabled: false,
-      },
-    ];
+  // if (db.floor.count() === 0) {
+  //   const defaultGameId = 'default-game';
+  //   const initialFloors = [
+  //     {
+  //       GameID: defaultGameId,
+  //       FloorNum: 1,
+  //       Name: 'エントランス',
+  //       Enabled: true,
+  //     },
+  //     {
+  //       GameID: defaultGameId,
+  //       FloorNum: 2,
+  //       Name: '謎の部屋',
+  //       Enabled: true,
+  //     },
+  //     {
+  //       GameID: defaultGameId,
+  //       FloorNum: 3,
+  //       Name: '休憩所',
+  //       Enabled: false,
+  //     },
+  //     {
+  //       GameID: defaultGameId,
+  //       FloorNum: 4,
+  //       Name: '図書室',
+  //       Enabled: false,
+  //     },
+  //     {
+  //       GameID: defaultGameId,
+  //       FloorNum: 5,
+  //       Name: '宝物庫',
+  //       Enabled: true,
+  //     },
+  //     {
+  //       GameID: defaultGameId,
+  //       FloorNum: 6,
+  //       Name: 'ボス部屋',
+  //       Enabled: true,
+  //     }
+  //   ];
 
-    initialFloors.forEach((floor) => {
-      db.floor.create(floor);
-    });
+  //   initialFloors.forEach((floor) => {
+  //     db.floor.create(floor);
+  //   });
 
-    await persistDb('floor');
-  }
+  //   await persistDb('floor');
+  // }
 };
 
 // jsonに保存されているモックデータの読みこみ

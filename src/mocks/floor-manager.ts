@@ -1,4 +1,4 @@
-import { loadDb, storeDb } from './db';
+import { loadDb, storeDb, db as mswDb } from './db';
 
 interface Floor {
   id: string;
@@ -23,9 +23,28 @@ interface MockDb {
 }
 
 /**
- * 利用可能なフロア番号の配列（1階はスタート地点兼ゴールなので除外）
+ * 利用可能なフロア番号を取得（enabled: trueのフロアのみ、1階を除く）
+ * db.floor（handlers/floor.tsで使用）からEnabledフロアを取得
  */
-const AVAILABLE_FLOORS = [2, 5, 6];
+const getAvailableFloors = (gameId: string = 'default-game'): number[] => {
+  const floors = mswDb.floor.findMany({
+    where: {
+      GameID: {
+        equals: gameId,
+      },
+    },
+  });
+
+  if (floors.length === 0) {
+    // フォールバック: デフォルト値
+    return [2, 3, 5, 6];
+  }
+
+  return floors
+    .filter((floor) => floor.Enabled && floor.FloorNum !== 1)
+    .map((floor) => floor.FloorNum)
+    .sort((a, b) => a - b);
+};
 
 /**
  * データベースの初期化（初回のみ）
@@ -104,25 +123,21 @@ export const initializeFloorDb = async (): Promise<MockDb> => {
  * ランダムにフロアを選択（初回）
  * 注意: この関数を呼ぶ前に initializeFloorDb() を呼ぶこと
  */
-export const getRandomFloor = (): number => {
-  // AVAILABLE_FLOORSから直接ランダムに選択
-  if (AVAILABLE_FLOORS.length === 0) {
+export const getRandomFloor = (gameId: string = 'default-game'): number => {
+  const availableFloors = getAvailableFloors(gameId);
+
+  // 利用可能なフロアがない場合
+  if (availableFloors.length === 0) {
     return 1; // デフォルト
   }
 
-  // Crypto APIを使用してより確実な乱数を生成（複数回試行）
-  const randomBytes = new Uint32Array(5);
+  // Crypto APIを使用してより確実な乱数を生成
+  const randomBytes = new Uint32Array(1);
   crypto.getRandomValues(randomBytes);
 
-  const tests = Array.from(randomBytes).map((val) => ({
-    value: val,
-    mod3: val % 3,
-    floor: AVAILABLE_FLOORS[val % 3],
-  }));
-
-  // 最初の値を使用
-  const randomIndex = randomBytes[0] % AVAILABLE_FLOORS.length;
-  const selectedFloor = AVAILABLE_FLOORS[randomIndex];
+  // ランダムインデックスを取得
+  const randomIndex = randomBytes[0] % availableFloors.length;
+  const selectedFloor = availableFloors[randomIndex];
 
   return selectedFloor;
 };
@@ -132,19 +147,21 @@ export const getRandomFloor = (): number => {
  */
 export const getGameProgress = async (
   teamId: string,
+  gameId: string = 'default-game',
 ): Promise<{
   currentFloor: number;
   clearedFloors: number[];
   allClear: boolean;
 }> => {
   const db = await initializeFloorDb();
+  const availableFloors = getAvailableFloors(gameId);
 
   // チームの進捗を取得
   const progress = db.gameProgress.find((p) => p.teamId === teamId);
 
   if (!progress) {
     // 初回: ランダムにフロアを割り当て
-    const randomFloor = getRandomFloor();
+    const randomFloor = getRandomFloor(gameId);
     const newProgress = {
       teamId,
       currentFloor: randomFloor,
@@ -176,8 +193,8 @@ export const getGameProgress = async (
   }
 
   // まだクリアしていないフロアを取得
-  const unclearedFloors = AVAILABLE_FLOORS.filter(
-    (num) => !progress.clearedFloors.includes(num),
+  const unclearedFloors = availableFloors.filter(
+    (num: number) => !progress.clearedFloors.includes(num),
   );
 
   // 全フロアクリア済みの場合
@@ -196,19 +213,21 @@ export const getGameProgress = async (
 export const getLeastCongestedFloor = async (
   teamId: string,
   clearedFloor: number,
+  gameId: string = 'default-game',
 ): Promise<{
   nextFloor: number;
   clearedFloors: number[];
   allClear: boolean;
 }> => {
   const db = await initializeFloorDb();
+  const availableFloors = getAvailableFloors(gameId);
 
   // チームの進捗を取得または作成
   let progress = db.gameProgress.find((p) => p.teamId === teamId);
 
   if (!progress) {
     // 初回: ランダムにフロアを割り当て
-    const randomFloor = getRandomFloor();
+    const randomFloor = getRandomFloor(gameId);
     progress = {
       teamId,
       currentFloor: randomFloor,
@@ -254,8 +273,8 @@ export const getLeastCongestedFloor = async (
   }
 
   // まだクリアしていないフロアを取得
-  const unclearedFloors = AVAILABLE_FLOORS.filter(
-    (num) => !progress.clearedFloors.includes(num),
+  const unclearedFloors = availableFloors.filter(
+    (num: number) => !progress.clearedFloors.includes(num),
   );
 
   // 全フロアクリア済みの場合
@@ -270,7 +289,7 @@ export const getLeastCongestedFloor = async (
 
   // 最も空いているフロアを見つける
   const floorCongestion = unclearedFloors
-    .map((floorNum) => {
+    .map((floorNum: number) => {
       const floorData = db.floors.find((f) => f.floorNum === floorNum);
       return {
         floorNum,
@@ -280,7 +299,7 @@ export const getLeastCongestedFloor = async (
         currentCount: floorData?.currentCount || 0,
       };
     })
-    .sort((a, b) => a.congestion - b.congestion);
+    .sort((a: any, b: any) => a.congestion - b.congestion);
 
   const nextFloor = floorCongestion[0].floorNum;
 
@@ -301,7 +320,7 @@ export const getLeastCongestedFloor = async (
     teamId,
     nextFloor,
     clearedFloors: progress.clearedFloors,
-    floorCongestion: floorCongestion.map((f) => ({
+    floorCongestion: floorCongestion.map((f: any) => ({
       floor: f.floorNum,
       count: f.currentCount,
     })),
@@ -319,7 +338,7 @@ export const getLeastCongestedFloor = async (
  */
 export const getFloorCongestionStatus = async () => {
   const db = await initializeFloorDb();
-  return db.floors.map((f) => ({
+  return db.floors.map((f: any) => ({
     floorNum: f.floorNum,
     currentCount: f.currentCount,
     maxCapacity: f.maxCapacity,
