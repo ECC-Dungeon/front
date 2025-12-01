@@ -22,6 +22,7 @@ type MissionFloor = (typeof MISSION_FLOORS)[number];
 export interface TableRowProps extends VariantProps<typeof TableRowVariants> {
   floor?: MissionFloor;
   className?: string;
+  isCleared?: boolean;
 }
 
 // 各階の背景色を設定0はダミー用
@@ -46,7 +47,11 @@ export const TableRowVariants = cva(
   },
 );
 
-export const TableRow: React.FC<TableRowProps> = ({ floor = 0, className }) => {
+export const TableRow: React.FC<TableRowProps> = ({
+  floor = 0,
+  className,
+  isCleared = false,
+}) => {
   const mission = MissionData[floor];
   const navigate = useNavigate();
 
@@ -58,7 +63,10 @@ export const TableRow: React.FC<TableRowProps> = ({ floor = 0, className }) => {
 
   return (
     <tr onClick={handleRowClick} className={`h-20 ${className}`}>
-      <td className={TableRowVariants({ floor })}>{mission.description}</td>
+      <td className={TableRowVariants({ floor })}>
+        {mission.description}
+        {isCleared && <span className="ml-2 text-xl">クリア済み</span>}
+      </td>
     </tr>
   );
 };

@@ -15,6 +15,7 @@ export const MapRoute = () => {
   const [floor, setFloor] = useState<1 | 2 | 3 | 4 | 5 | 6>(2);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [clearedFloor, setClearedFloor] = useState<0 | 1 | 2 | 3 | 4>(0);
+  const [clearedFloors, setClearedFloors] = useState<number[]>([]);
 
   const postFloorMutation = usePostFloor();
   const gameId = localStorage.getItem('gameId') || '';
@@ -37,7 +38,9 @@ export const MapRoute = () => {
         setFloor(nextNum as 1 | 2 | 3 | 4 | 5 | 6);
       }
     }
-    setClearedFloor(state.msg?.CleardFloor.length || 0);
+    const clearedFloorsArray = state.msg?.CleardFloor || [];
+    setClearedFloors(clearedFloorsArray);
+    setClearedFloor(clearedFloorsArray.length || 0);
     setIsLoading(false);
   }, [location.state]);
 
@@ -65,7 +68,7 @@ export const MapRoute = () => {
             <Loading />
           </div>
         ) : (
-          <MapTable floor={floor} />
+          <MapTable floor={floor} clearedFloors={clearedFloors} />
         )}
         <div className="mt-10 flex items-center justify-center">
           <ReaderButton onClick={() => setReader(true)} />
