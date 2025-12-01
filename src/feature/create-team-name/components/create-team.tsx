@@ -35,7 +35,7 @@ export const InputTeam = () => {
               label="チーム名を入力してください"
               error={formState.errors['NickName']}
               registration={register('NickName')}
-              className="bg-[#FAFAFA] bg-opacity-25 shadow-inner"
+              className="bg-[#FAFAFA] bg-opacity-25 shadow-inner text-black"
             />
             <div className="flex w-full justify-end">
               <Button children="次へ" />
