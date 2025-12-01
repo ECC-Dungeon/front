@@ -6,6 +6,9 @@ export const enableMocking = async () => {
     const { initializeDb } = await import('./db');
     await initializeDb();
     return worker.start({
+      serviceWorker: {
+        url: '/user/mockServiceWorker.js',
+      },
       onUnhandledRequest: 'bypass',
       quiet: false,
     });

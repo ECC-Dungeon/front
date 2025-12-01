@@ -5,6 +5,8 @@ import Button from '@/components/ui/button/button';
 import { ContentLayout } from '@/components/layouts/content-layout';
 import { MdCancel } from 'react-icons/md';
 
+import Logo from '@/assets/ecc-dungeon-logo.webp';
+
 type LoginFormProps = {
   onSuccess: () => void;
 };
@@ -29,7 +31,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
       <div className="h-screen bg-[radial-gradient(circle_at_center,_#323232cc_0%,_#323232ff_100%)]">
         <div className="flex h-screen flex-col items-center justify-center gap-4">
           <div>
-            <img src="/ecc-dungeon-logo.webp" alt="ECCダンジョンメインロゴ" />
+            <img src={Logo} alt="ECCダンジョンメインロゴ" />
           </div>
           <Button onClick={openModal} children="認証QRコードを読み取る" />
           <Modal

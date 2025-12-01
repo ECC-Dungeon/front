@@ -10,6 +10,8 @@ import { InputTeam } from '@/feature/create-team-name/components/create-team';
 import Loading from '@/components/ui/loading/loading';
 import { paths } from '@/config/paths';
 
+import Logo from '@/assets/ecc-dungeon-logo.webp';
+
 export const teamNameLoader = (queryClient: QueryClient) => async () => {
   const query = getTeamNameQueryOptions();
 
@@ -46,7 +48,7 @@ export const CreateTeamNameRoute = () => {
 
   return (
     <section className="bg-main flex h-svh flex-col items-center justify-center space-y-24">
-      <img src="/ecc-dungeon-logo.webp" alt="ECCダンジョンメインロゴ" />
+      <img src={Logo} alt="ECCダンジョンメインロゴ" />
       <InputTeam />
     </section>
   );
