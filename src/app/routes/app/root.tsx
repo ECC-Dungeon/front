@@ -70,7 +70,7 @@ export const AppRootErrorBoundary = () => {
           </p>
 
           <a
-            href="http://localhost:5173/user/app/explanation"
+            href="https://dungeon.ecc-comp.com/user/app/explanation"
             className="group relative inline-flex items-center justify-center overflow-hidden rounded-full border border-white/20 bg-white/10 px-8 py-3 transition-all hover:bg-white/20 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]"
           >
             <span className="relative text-sm font-medium text-white group-hover:text-blue-200">
