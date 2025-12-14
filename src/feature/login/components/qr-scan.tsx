@@ -1,3 +1,4 @@
+import Loading from '@/components/ui/loading/loading';
 import { useQrScanner } from '@/hooks/use-qr-scanner';
 import { useEffect } from 'react';
 
@@ -10,13 +11,13 @@ export const QrScan = ({ onSuccess }: LoginFormProps) => {
 
   useEffect(() => {
     if (result) {
-      localStorage.setItem('gameToken', result);
+      localStorage.setItem('token', result);
       onSuccess();
     }
   }, [result]);
 
   return (
-    <section>
+    <section className="w-full items-center flex flex-col">
       {!result && (
         <div className="size-72">
           <div className="relative h-72 w-72">
@@ -37,8 +38,9 @@ export const QrScan = ({ onSuccess }: LoginFormProps) => {
       )}
       {error && <p className="text-center text-xs text-red-500">{error}</p>}
       {!result && !error && (
-        // TODO: ローディングコンポーネントに切り替える
-        <p className="text-center text-gray-500">読み取り中...</p>
+        <div className="absolute top-0 text-center text-gray-500">
+          <Loading />
+        </div>
       )}
     </section>
   );

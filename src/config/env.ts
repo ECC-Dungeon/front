@@ -8,6 +8,12 @@ const createEnv = () => {
       .refine((s) => s === 'true' || s === 'false')
       .transform((s) => s === 'true')
       .optional(),
+    SKIP_AUTH: z
+      .string()
+      .refine((s) => s === 'true' || s === 'false')
+      .transform((s) => s === 'true')
+      .optional()
+      .default('false' as any),
     APP_URL: z.string().optional().default('http://localhost:5173'),
     APP_MOCK_API_PORT: z.string().optional().default('8080'),
   });

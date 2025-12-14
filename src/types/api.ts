@@ -16,7 +16,6 @@ export type User = Entity<{
   email: string;
 }>;
 
-
 export type GameToken = {
   msg: string;
   result: string;
@@ -24,4 +23,42 @@ export type GameToken = {
 
 export type TeamName = {
   name: string;
+};
+
+// 使用する階層のエンティティ
+export type Floor = {
+  FloorNum: number;
+  Name: string;
+  Enabled: boolean;
+};
+
+// ゲーム進捗のエンティティ
+export type NextEntity = {
+  NextNum: number;
+  AllClear: boolean;
+  ClearFloor: Array<number>;
+};
+
+export type TeamData = {
+  TeamID: string;
+  Name: string;
+  GameID: string;
+  Status: string;
+  NickName: string;
+  Creator: string;
+  CreatedAt: number;
+};
+
+export type ApiResponse = {
+  msg: TeamData;
+  result: string;
+};
+
+export type GameStatus = {
+  msg: {
+    NextNum: number;
+    AllClear: boolean;
+    CleardFloor: number[];
+  };
+  result: string;
 };

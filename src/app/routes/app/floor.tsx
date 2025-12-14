@@ -1,23 +1,23 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { DialogBubble } from '@/components/ui/dialog/dialog';
-import { useUser } from '@/lib/auth';
-// import { ContentLayout } from '@/components/layouts/content-layout';
 import character from '@/assets/echo.png';
-import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowBack } from 'react-icons/io';
 import Stopwatch from '@/feature/map/components/stopwatch.tsx';
+import { paths } from '@/config/paths';
 
 // 背景画像のインポート
-import brown from '@/assets/floor1-bg.png';
-import green from '@/assets/floor2-bg.png';
-import red from '@/assets/floor5-bg.png';
-import purple from '@/assets/floor6-bg.png';
+import floorOne from '@/assets/background/floor1-bg.png';
+import floorTwo from '@/assets/background/floor2-bg.png';
+import floorThree from '@/assets/background/floor3-bg.png';
+import floorFour from '@/assets/background/floor4-bg.png';
+import floorFive from '@/assets/background/floor5-bg.png';
+import floorSix from '@/assets/background/floor6-bg.png';
 // マップ画像のインポート
-import first from '@/assets/floor1-map.png';
-import second from '@/assets/floor2-map.png';
-import fifth_sixth from '@/assets/floor5_6-map.png';
+import first from '@/assets/map/floor1-map.png';
+import second from '@/assets/map/floor2-map.png';
+import fifth_sixth from '@/assets/map/floor5_6-map.png';
 
 export const FloorRoute = () => {
-
   return <Floor />;
 };
 
@@ -25,10 +25,12 @@ const floors: Record<
   number,
   { id: number; name: string; background: string; floorMap: string }
 > = {
-  1: { id: 1, name: '１階', background: brown, floorMap: first },
-  2: { id: 2, name: '２階', background: green, floorMap: second },
-  5: { id: 5, name: '５階', background: red, floorMap: fifth_sixth },
-  6: { id: 6, name: '６階', background: purple, floorMap: fifth_sixth },
+  1: { id: 1, name: '１階', background: floorOne, floorMap: first },
+  2: { id: 2, name: '２階', background: floorTwo, floorMap: second },
+  3: { id: 3, name: '３階', background: floorThree, floorMap: fifth_sixth },
+  4: { id: 4, name: '４階', background: floorFour, floorMap: fifth_sixth },
+  5: { id: 5, name: '５階', background: floorFive, floorMap: fifth_sixth },
+  6: { id: 6, name: '６階', background: floorSix, floorMap: fifth_sixth },
 };
 
 const Floor = () => {
@@ -39,7 +41,7 @@ const Floor = () => {
   console.log('floorData:', floorData);
 
   if (!floorData) {
-    navigate('/app/map'); // map.tsxにリダイレクト
+    navigate(paths.app.map.getHref()); // map.tsxにリダイレクト
     return null;
   }
 
@@ -84,7 +86,7 @@ const Floor = () => {
 
       {/* キャラクターとダイアログ */}
       <div className="absolute bottom-0 left-0 w-full">
-        <img src={character} alt="エコ" className="h-auto w-[370px]" />
+        <img src={character} alt="エコ" className="h-auto w-[370px] mx-auto" />
         <DialogBubble
           name="エコ"
           message={`はじめまして！<br>ECCダンジョンの案内係を担当するエコだよ！<br>今日はよろしくね。`}

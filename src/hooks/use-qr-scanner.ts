@@ -8,6 +8,8 @@ export const useQrScanner = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
+    let isActive = true;
+
     const constraints = {
       video: {
         facingMode: 'environment',
@@ -19,10 +21,22 @@ export const useQrScanner = () => {
     const startVideo = async () => {
       try {
         const stream = await navigator.mediaDevices.getUserMedia(constraints);
-        if (videoRef.current) {
+        if (videoRef.current && isActive) {
           videoRef.current.srcObject = stream;
-          videoRef.current.play();
-          scanQrCode();
+
+          // play()のエラーをキャッチ
+          try {
+            await videoRef.current.play();
+          } catch (playError) {
+            // AbortErrorは無視（Strict Modeで2回マウントされる場合に発生）
+            if (playError instanceof Error && playError.name !== 'AbortError') {
+              throw playError;
+            }
+          }
+
+          if (isActive) {
+            scanQrCode();
+          }
         }
       } catch (err: unknown) {
         if (err instanceof Error) {
@@ -70,6 +84,8 @@ export const useQrScanner = () => {
     };
 
     const scanQrCode = () => {
+      if (!isActive) return;
+
       const canvas = canvasRef.current;
       const video = videoRef.current;
       if (canvas && video) {
@@ -89,8 +105,12 @@ export const useQrScanner = () => {
             // headerが正しい確認
             if (parsed.header !== import.meta.env.VITE_APP_QR_HEADER) {
               setError('対応していないQRコードです');
-              setTimeout(() => setError(''), 2000);
-              setTimeout(scanQrCode, 1000);
+              setTimeout(() => {
+                if (isActive) setError('');
+              }, 2000);
+              setTimeout(() => {
+                if (isActive) scanQrCode();
+              }, 1000);
               return;
             }
             setResult(parsed.body);
@@ -99,7 +119,9 @@ export const useQrScanner = () => {
           } else {
             setError('QRコードが見つかりませんでした');
           }
-          setTimeout(scanQrCode, 100); // 100msごとにQRコードをスキャン
+          if (isActive) {
+            setTimeout(scanQrCode, 100); // 100msごとにQRコードをスキャン
+          }
         }
       }
     };
@@ -109,9 +131,11 @@ export const useQrScanner = () => {
     const currentVideoRef = videoRef.current;
 
     return () => {
+      isActive = false;
       if (currentVideoRef?.srcObject) {
         const stream = currentVideoRef.srcObject as MediaStream;
         stream.getTracks().forEach((track) => track.stop());
+        currentVideoRef.srcObject = null;
       }
     };
   }, []);

@@ -1,11 +1,22 @@
 import { queryOptions, useQuery } from '@tanstack/react-query';
 
 import { api } from '@/lib/api-client';
-import { TeamName } from '@/types/api';
 import { QueryConfig } from '@/lib/query';
+interface ApiResponse {
+  msg: {
+    TeamID: string;
+    Name: string;
+    GameID: string;
+    Status: string;
+    NickName: string;
+    Creator: string;
+    CreatedAt: number;
+  };
+  result: string;
+}
 
-export const getTeamName = (): Promise<{ data: TeamName }> => {
-  return api.get('/get/team-name');
+export const getTeamName = (): Promise<ApiResponse> => {
+  return api.get('/admin/game/team');
 };
 
 export const getTeamNameQueryOptions = () => {

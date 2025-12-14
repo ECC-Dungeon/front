@@ -3,19 +3,23 @@ import { nanoid } from 'nanoid';
 
 // モデルの定義
 const models = {
-  user: {
-    id: primaryKey(nanoid),
-    email: String,
-    password: String,
-    createdAt: () => Date.now(),
-  },
   team: {
+    TeamID: primaryKey(nanoid),
+    Name: String,
+    GameID: String,
+    Status: String,
+    NickName: String,
+    Creator: String,
+    CreatedAt: Number,
+  },
+  floor: {
     id: primaryKey(nanoid),
-    name: String,
-    createdAt: () => Date.now(),
+    GameID: String,
+    FloorNum: Number,
+    Name: String,
+    Enabled: Boolean,
   },
 };
-
 
 // モックでDBの作成
 export const db = factory(models);
@@ -28,6 +32,7 @@ const dbFilePath = 'mocked-db.json';
 // データベースの初期化
 export const initializeDb = async () => {
   const database = await loadDb();
+
   Object.entries(db).forEach(([key, model]) => {
     const dataEntre = database[key];
     if (dataEntre) {
@@ -36,6 +41,55 @@ export const initializeDb = async () => {
       });
     }
   });
+
+  // 初期フロアデータがない場合は作成
+  // if (db.floor.count() === 0) {
+  //   const defaultGameId = 'default-game';
+  //   const initialFloors = [
+  //     {
+  //       GameID: defaultGameId,
+  //       FloorNum: 1,
+  //       Name: 'エントランス',
+  //       Enabled: true,
+  //     },
+  //     {
+  //       GameID: defaultGameId,
+  //       FloorNum: 2,
+  //       Name: '謎の部屋',
+  //       Enabled: true,
+  //     },
+  //     {
+  //       GameID: defaultGameId,
+  //       FloorNum: 3,
+  //       Name: '休憩所',
+  //       Enabled: false,
+  //     },
+  //     {
+  //       GameID: defaultGameId,
+  //       FloorNum: 4,
+  //       Name: '図書室',
+  //       Enabled: false,
+  //     },
+  //     {
+  //       GameID: defaultGameId,
+  //       FloorNum: 5,
+  //       Name: '宝物庫',
+  //       Enabled: true,
+  //     },
+  //     {
+  //       GameID: defaultGameId,
+  //       FloorNum: 6,
+  //       Name: 'ボス部屋',
+  //       Enabled: true,
+  //     }
+  //   ];
+
+  //   initialFloors.forEach((floor) => {
+  //     db.floor.create(floor);
+  //   });
+
+  //   await persistDb('floor');
+  // }
 };
 
 // jsonに保存されているモックデータの読みこみ
@@ -58,9 +112,9 @@ export const loadDb = async () => {
     }
   }
 
-  return Object.assign(
-    JSON.parse(window.localStorage.getItem('msw-db') || '{}'),
-  );
+  const stored = window.localStorage.getItem('msw-db');
+  const result = Object.assign(JSON.parse(stored || '{}'));
+  return result;
 };
 
 // データの保存を行う
