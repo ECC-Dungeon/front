@@ -6,9 +6,9 @@ export const paths = {
 
   auth: {
     login: {
-      path: '/auth/login',
+      path: '/auths/login',
       getHref: (redirectTo?: string | null | undefined) =>
-        `/auth/login${redirectTo ? `?redirectTo=${encodeURIComponent(redirectTo)}` : ''}`,
+        `/auths/login${redirectTo ? `?redirectTo=${encodeURIComponent(redirectTo)}` : ''}`,
     },
   },
 
@@ -17,13 +17,29 @@ export const paths = {
       path: '/app',
       getHref: () => '/app',
     },
+    team: {
+      path: 'create-team-name',
+      getHref: () => '/app/create-team-name',
+    },
     explanation: {
       path: 'explanation',
       getHref: () => '/app/explanation',
     },
-    result: {
-      path: 'result',
-      getHref: () => '/app/result',
+    map: {
+      path: 'map',
+      getHref: () => '/app/map',
+    },
+    floor: {
+      path: 'floor',
+      getHref: () => '/app/floor',
+    },
+    completedQr: {
+      path: 'completed-qr',
+      getHref: () => '/app/completed-qr',
+    },
+    getQr: {
+      path: 'get-qr',
+      getHref: () => '/app/get-qr',
     },
   },
 } as const;

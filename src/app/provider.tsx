@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from 'react';
+import { Suspense, useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ErrorBoundary } from 'react-error-boundary';
 
@@ -18,7 +18,7 @@ export const Provider = ({ children }: ProviderProps) => {
   );
 
   return (
-    <Suspense fallback={<div></div>}>
+    <Suspense fallback={<div>...</div>}>
       {/* sスピナーを表示する */}
       {/* エラー画面を作成する */}
       <ErrorBoundary FallbackComponent={MainError}>

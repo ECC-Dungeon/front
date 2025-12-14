@@ -1,3 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --font-size-sm: 16px;
+  --color-black: #202020;
+  --color-light-gray: #ededed;
+  --color-main: #323232;
+  --line-height-12: 3rem;
+}
