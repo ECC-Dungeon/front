@@ -31,3 +31,7 @@ dist-ssr
 mocked-db.json
 
 CLAUDE.md
+
+.claude/
+tsconfig.app.tsbuildinfo
+tsconfig.node.tsbuildinfo
