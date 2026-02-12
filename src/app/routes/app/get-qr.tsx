@@ -132,7 +132,9 @@ export const GetQrRoute = () => {
                 <p>QRコードのかけらを</p>
                 <p>ゲットした!</p>
               </div>
-              <QrPiece pieceId={clearCount} className="my-12" />
+              {clearCount > 0 && (
+                <QrPiece pieceId={clearCount} className="my-12" />
+              )}
               <div className="text-center font-sans text-xl leading-loose font-semibold text-white">
                 <p>鍵が完成するまで</p>
                 <p>
