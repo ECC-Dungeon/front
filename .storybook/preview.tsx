@@ -9,30 +9,32 @@ import '../src/index.css';
 
 // Storybook用のカスタムハンドラー
 const storybookHandlers = [
-  // 3階層用のハンドラー
   http.get(`${env.API_URL}/admin/game/floor`, ({ request }) => {
     const gameId = request.headers.get('gameid');
 
-    if (gameId === 'three-floors-game') {
-      return HttpResponse.json({
-        result: 'success',
-        msg: [
-          { GameID: gameId, FloorNum: 1, Name: 'Floor 1', Enabled: true },
-          { GameID: gameId, FloorNum: 2, Name: 'Floor 2', Enabled: true },
-          { GameID: gameId, FloorNum: 3, Name: 'Floor 3', Enabled: true },
-        ],
-      });
-    }
+    // 階層数のマッピング
+    const floorCounts: Record<string, number> = {
+      'one-floor-game': 1,
+      'two-floors-game': 2,
+      'three-floors-game': 3,
+      'four-floors-game': 4,
+      'five-floors-game': 5,
+      'six-floors-game': 6,
+    };
 
-    if (gameId === 'four-floors-game') {
+    const floorCount = gameId ? floorCounts[gameId] : undefined;
+
+    if (floorCount) {
+      const floors = Array.from({ length: floorCount }, (_, i) => ({
+        GameID: gameId,
+        FloorNum: i + 1,
+        Name: `Floor ${i + 1}`,
+        Enabled: true,
+      }));
+
       return HttpResponse.json({
         result: 'success',
-        msg: [
-          { GameID: gameId, FloorNum: 1, Name: 'Floor 1', Enabled: true },
-          { GameID: gameId, FloorNum: 2, Name: 'Floor 2', Enabled: true },
-          { GameID: gameId, FloorNum: 3, Name: 'Floor 3', Enabled: true },
-          { GameID: gameId, FloorNum: 4, Name: 'Floor 4', Enabled: true },
-        ],
+        msg: floors,
       });
     }
 
