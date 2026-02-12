@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { DialogBubble } from '@/components/ui/dialog/dialog';
 import character from '@/assets/echo.png';
@@ -36,12 +37,17 @@ const floors: Record<
 const Floor = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const floorData = floors[location.state.id];
+  const floorData = floors[location.state?.id];
 
   console.log('floorData:', floorData);
 
+  useEffect(() => {
+    if (!floorData) {
+      navigate(paths.app.map.getHref(), { replace: true });
+    }
+  }, [floorData, navigate]);
+
   if (!floorData) {
-    navigate(paths.app.map.getHref()); // map.tsxにリダイレクト
     return null;
   }
 

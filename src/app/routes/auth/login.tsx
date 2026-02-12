@@ -8,15 +8,15 @@ export const LoginRoute = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const redirectTo = searchParams.get('redirectTo');
-  const gameToken = localStorage.getItem('token');
-  
+
   useEffect(() => {
+    const gameToken = localStorage.getItem('token');
     if (gameToken) {
       navigate(`${paths.app.team.getHref()}`, {
         replace: true,
       });
     }
-  }, [gameToken, navigate]);
+  }, [navigate]);
 
   return (
     <LoginForm
