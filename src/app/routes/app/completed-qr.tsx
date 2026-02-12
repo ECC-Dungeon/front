@@ -23,7 +23,7 @@ export const CompletedQrRoute = () => {
     <PageLayout>
       <div className="relative flex h-screen justify-center">
         <CircleGradation>
-          <CompletedQr />;
+          <CompletedQr />
         </CircleGradation>
       </div>
     </PageLayout>

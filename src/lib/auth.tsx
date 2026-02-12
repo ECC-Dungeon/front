@@ -24,6 +24,7 @@ export const ProtectedRoute = ({ children }: { children: ReactNode }) => {
     }
     return children;
   } catch (e) {
-    console.log(e);
+    console.error('認証エラー:', e);
+    return <Navigate to={paths.auth.login.getHref(location.pathname)} replace />;
   }
 };
