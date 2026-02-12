@@ -70,7 +70,7 @@ const Floor = () => {
       style={{ backgroundImage: `url(${floorData.background})` }}
     >
       {/* ヘッダー */}
-      <header className="flex items-center justify-between px-6 pt-8 text-2xl text-white">
+      <header className="z-10 flex items-center justify-between px-6 pt-8 text-2xl text-white relative">
         <button
           className="flex items-center gap-3 rounded-full px-5 py-3"
           onClick={() => navigate(-1)}
@@ -91,12 +91,18 @@ const Floor = () => {
       <FloorMap />
 
       {/* キャラクターとダイアログ */}
-      <div className="absolute bottom-0 left-0 w-full">
-        <img src={character} alt="エコ" className="h-auto w-[370px] mx-auto" />
-        <DialogBubble
-          name="エコ"
-          message={`はじめまして！<br>ECCダンジョンの案内係を担当するエコだよ！<br>今日はよろしくね。`}
-        />
+      <div className="absolute bottom-0 left-0 z-0 size-full">
+        <div className="flex h-full flex-col justify-end">
+          <img
+            src={character}
+            alt="エコ"
+            className="mx-auto h-auto w-[370px]"
+          />
+          <DialogBubble
+            name="エコ"
+            message={`はじめまして！<br>ECCダンジョンの案内係を担当するエコだよ！<br>今日はよろしくね。`}
+          />
+        </div>
       </div>
     </section>
   );
